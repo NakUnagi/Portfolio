@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.scss';
 import PortfolioStartPage from './components/Portfolio/PortfolioStartPage';
-import MainWeather from './components/WeatherProject/Main'
+import WeatherPage from './components/WeatherProject/WeatherPage'
 import ErrorPage from './components/ErrorPage/ErrorPage';
 
 const router = createBrowserRouter([
@@ -14,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: "weather",
-    element: <MainWeather />,
+    element: <WeatherPage />,
   }
 ])
 

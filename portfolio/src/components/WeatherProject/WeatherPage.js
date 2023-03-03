@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext'
 import SearchCity from "./SearchCity";
 
-const MainWeather = () => {
+const WeatherPage = () => {
     
     return (
         <>
@@ -13,4 +12,4 @@ const MainWeather = () => {
     )
 }
 
-export default MainWeather
+export default WeatherPage

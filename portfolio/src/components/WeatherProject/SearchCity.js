@@ -4,23 +4,9 @@ import { ServiceGetWeatherContext } from './ServiceGetWeatherContext'
 import CityResult from './CityResult'
 
 
-const SearchCity = (props) => {
+const SearchCity = () => {
 
-    // const [data, setData] = useState({})
     const { handeCityName, request, data } = useContext(ServiceGetWeatherContext)
-
-    // const API_KEY = ServiceGetWeatherContext.Consumer._currentValue2.API_KEY_WEATHER
-
-    // const URL_GET_WEATHER =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
-
-    // const request = e => {
-    //     e.preventDefault()
-    //         const response = (fetch(URL_GET_WEATHER))
-    //         response.then(response => response.json())
-    //         .then(req => {
-    //             setData(() => req)
-    //         })
-    // }
 
     return (
         <>
@@ -44,9 +30,7 @@ const SearchCity = (props) => {
                     </form>
                     {data && console.log(data)}
                     </ServiceGetWeatherContextProvider>
-                    {/* <ServiceGetWeatherContext.Provider value={{data}}>
                         <CityResult />
-                    </ServiceGetWeatherContext.Provider> */}
                     </div>
                 </div>
             </div>

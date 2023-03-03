@@ -1,11 +1,18 @@
-import React from "react";
-import { ServiceGetWeatherContext } from './ServiceGetWeatherContext'
+import React, { useContext } from "react";
+import { ServiceGetWeatherContext, ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext'
+import DisplayIconWeather from './DisplayIconWeather'
 
-const CityResult = props => {
+const CityResult = () => {
+    const { data, ikonID, timeOfDay } = useContext(ServiceGetWeatherContext)
+
     return (
         <>
-            {/* {props.wind.speed} */}
-
+            <ServiceGetWeatherContextProvider>
+                {ikonID && <p>ikonID: {ikonID}</p>}
+                <   br/>
+                {timeOfDay && <p>timeOfday: {timeOfDay.slice(2,3)}</p>}
+            </ServiceGetWeatherContextProvider>
+            <DisplayIconWeather />
         </>
     )
 }
