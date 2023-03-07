@@ -9,6 +9,10 @@
 }
 .als-center {
     align-self: center;
+
+    &.data {
+        align-self: normal;
+    }
 }
 .border-content {
     border: 1px solid #fff;

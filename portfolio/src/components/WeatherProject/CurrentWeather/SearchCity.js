@@ -32,7 +32,7 @@ const SearchCity = () => {
                         </ServiceGetWeatherContextProvider>
                     </div>
                     <div className="border-line"></div>
-                    <div className="col-md-8 als-center">
+                    <div className={`col-md-8 als-center ${data && 'data'}`}>
                         <GetWeatherInfo />
                     </div>
                 </div>

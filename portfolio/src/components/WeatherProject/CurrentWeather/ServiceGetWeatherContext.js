@@ -14,7 +14,12 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [timeOfDay, setTimeOfDay] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
+    const [cod, setCod] = useState('')
+    const [message, setMessage] = useState('')
     const [country , setCountry] = useState('')
+    const [loader, setLoader] = useState(false)
+    const [errorMessage, setErrorMessage] =useState(false)
+
 
     const API_KEY = data1.API_KEY_WEATHER
 
@@ -25,7 +30,9 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const URL_GET_WEATHER =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&lang=en`
 
     const request = e => {
+        setErrorMessage(false);
         e.preventDefault()
+        setLoader(true)
             const response = (fetch(URL_GET_WEATHER))
             response.then(response => response.json())
             .then(req => {
@@ -35,13 +42,21 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
                 setDescription(req.weather[0].description)
                 setName(req.name)
                 setCountry(req.sys.country)
+                setLoader(false)
             })
+            .catch(() => {
+                setErrorMessage(true);
+                setMessage(data.message)
+                setCod(data.cod)
+                setLoader(false)
+             });
     }
     
     return (
         <ServiceGetWeatherContext.Provider  value={{
             city, handeCityName, request, data, ikonID, timeOfDay,
-            description,name, country}}>
+            description,name, country, loader, errorMessage, message,
+            cod}}>
             {children}
         </ServiceGetWeatherContext.Provider>
     )

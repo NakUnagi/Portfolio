@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ServiceGetWeatherContext, 
     ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
-
+import Loader from "../../Loader";
 
 
 const GetWeatherInfo = () => {
@@ -11,7 +11,11 @@ const GetWeatherInfo = () => {
         ikonID, 
         timeOfDay, 
         data, 
-        name } = useContext(ServiceGetWeatherContext)
+        name,
+        loader,
+        errorMessage,
+        message,
+        cod } = useContext(ServiceGetWeatherContext)
     const weatherInfo = [
         {
             id: 200,
@@ -316,15 +320,26 @@ const GetWeatherInfo = () => {
     )
 
     const weather = (
+        <>
+        {loader 
+        ? 
+        <Loader /> 
+        : 
         <div className="weather-info-container data">
             <h2>{name}<img src={img.slice(11)} alt="icon"/></h2>
-        </div>
+        </div> }
+        </>
+    )
+
+    const errorMSG = (
+        <p>{cod} {message}</p>
     )
 
     return(
         <ServiceGetWeatherContextProvider>
+            {console.log(errorMessage)}
+            {errorMessage ? errorMSG : null || data ? weather : info}
             
-            {data ? weather : info}
             
         </ServiceGetWeatherContextProvider>
     )
