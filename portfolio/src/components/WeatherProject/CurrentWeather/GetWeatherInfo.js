@@ -1,8 +1,18 @@
 import { useContext } from "react";
 import { ServiceGetWeatherContext, 
-    ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext'
+    ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
 
-const WeatherInfo = [
+
+
+const GetWeatherInfo = () => {
+
+    const { 
+        description, 
+        ikonID, 
+        timeOfDay, 
+        data, 
+        name } = useContext(ServiceGetWeatherContext)
+    const weatherInfo = [
         {
             id: 200,
             description: 'thunderstorm with light rain',
@@ -261,7 +271,8 @@ const WeatherInfo = [
         {
             id: 800,
             description: 'clear sky',
-            img: '../../media/weather_icons/day.svg'
+            img: '../../media/weather_icons/day.svg',
+            n: '../../media/weather_icons/night.svg'
         },
 
         {
@@ -285,20 +296,41 @@ const WeatherInfo = [
             img: '../../media/weather_icons/cloudy.svg'
         },
     ]
+    let img = ''
+    const WeatherInfoItem = weatherInfo.map(item => {
+        if (ikonID === item.id) {
+            if (item.id === 800 && timeOfDay === 'n') {
+                img = item.n
+                return img
+            } else {
+                img = item.img
+                return img
+            }
+        }
+    } )
 
-const DisplayIconWeather = () => {
+    const info = (
+        <div className="weather-info-container">
+            <p className="just-info">Here you will see the weather information</p>
+        </div>
+    )
 
-    const { description } = useContext(ServiceGetWeatherContext)
+    const weather = (
+        <div className="weather-info-container data">
+            <h2>{name}<img src={img.slice(11)} alt="icon"/></h2>
+        </div>
+    )
 
     return(
         <ServiceGetWeatherContextProvider>
-            {description}
+            
+            {data ? weather : info}
             
         </ServiceGetWeatherContextProvider>
     )
 
 }
 
-export default DisplayIconWeather
+export default GetWeatherInfo
 
 

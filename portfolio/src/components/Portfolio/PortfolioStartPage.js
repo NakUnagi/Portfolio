@@ -1,6 +1,8 @@
-import React, { PureComponent, Component } from 'react'
+import React, { Component } from 'react'
+import { Outlet } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 import './PortfolioStartPage.scss'
+import Nav from './Nav'
 
 class PortfolioStartPage extends Component {
     state = {
@@ -9,13 +11,16 @@ class PortfolioStartPage extends Component {
 
     render() {
         return (
-            <div className="container">
+            <>
+                <Nav />
+                <div className="container">
                     <div className="row">
                         <div className="col-md-12">
-                            test
+                            <Outlet />
                         </div>
                     </div>
                 </div>
+            </>
         )
     }
 }

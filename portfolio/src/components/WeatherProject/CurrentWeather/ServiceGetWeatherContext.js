@@ -12,7 +12,9 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [data, setData] = useState('')
     const [ikonID, setIkonID] = useState('')
     const [timeOfDay, setTimeOfDay] = useState('')
-    const [description, serDescription] = useState('')
+    const [description, setDescription] = useState('')
+    const [name, setName] = useState('')
+    const [country , setCountry] = useState('')
 
     const API_KEY = data1.API_KEY_WEATHER
 
@@ -29,15 +31,17 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             .then(req => {
                 setData(() => req)
                 setIkonID(req.weather[0].id)
-                setTimeOfDay(req.weather[0].icon)
-                serDescription(req.weather[0].description)
+                setTimeOfDay(req.weather[0].icon.slice(2,3))
+                setDescription(req.weather[0].description)
+                setName(req.name)
+                setCountry(req.sys.country)
             })
     }
     
     return (
         <ServiceGetWeatherContext.Provider  value={{
             city, handeCityName, request, data, ikonID, timeOfDay,
-            description}}>
+            description,name, country}}>
             {children}
         </ServiceGetWeatherContext.Provider>
     )

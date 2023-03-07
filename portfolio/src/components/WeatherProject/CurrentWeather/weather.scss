@@ -1,0 +1,71 @@
+.p-15-0 {
+    padding: 15px 0;
+}
+.mr-15-0 {
+    margin: 15px 0;
+}
+.mr-top-15 {
+    margin-top: 15px;
+}
+.als-center {
+    align-self: center;
+}
+.border-content {
+    border: 1px solid #fff;
+    margin: 15px 0 0 0;
+}
+.border-line {
+    padding: 0;
+    margin: 0;
+    border-right: 1px solid #fff;
+    width: 0px;
+}
+.d-block-center {
+    display: block;
+    margin: auto;
+
+    h1 {
+        text-align: center;
+        line-height: 1.3;
+    }
+}
+.searchCityForm {
+    .form-control {
+        width: 75%;
+        @media (max-width: 767px) {
+            width: 55%;
+          }
+    }
+}
+.dark-btn-mode {
+    border-color: #fff;
+    background: #000;
+}
+.header-container:after {
+    display: block;
+    content: '';
+    border-bottom: 2px solid #fff;
+    width: 45%;
+    margin: auto;
+    padding-top: 15px;
+}
+.weather-info-container {
+    display: flex;
+    justify-content: center;
+    .just-info {
+        margin: 0;
+        font-size: 33px;
+        font-weight: 200;
+    }
+    &.data{
+        display: block;
+        margin-left: 25px;
+    }
+}
+// .weather-icon-bg {
+//     background-image: url(../../../media/weather_icons/weather.svg);
+//     background-repeat: no-repeat;
+//     background-position: center;
+//     width: 100px;
+//     height: 100px;
+// }
