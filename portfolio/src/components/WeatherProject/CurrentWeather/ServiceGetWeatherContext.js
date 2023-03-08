@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 const data1 = {
     API_KEY_WEATHER: 'e2b8f759c9eb1a5eb0e514633411504f',
@@ -9,17 +9,27 @@ export const ServiceGetWeatherContext = createContext()
 
 export const ServiceGetWeatherContextProvider = ({ children }) => {
 
+
     const [data, setData] = useState('')
     const [ikonID, setIkonID] = useState('')
     const [timeOfDay, setTimeOfDay] = useState('')
     const [description, setDescription] = useState('')
     const [name, setName] = useState('')
-    const [cod, setCod] = useState('')
     const [message, setMessage] = useState('')
     const [country , setCountry] = useState('')
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(true)
     const [errorMessage, setErrorMessage] =useState(false)
+    const [selectValue, setSelectValue] = useState('')
 
+    const handleChangeUnit = e => {
+        if ( e.target.value === 'celsius' ) {
+            setSelectValue('&units=metric')
+        } else if ( e.target.value === 'fahrenheit' ) {
+            setSelectValue('&units=imperial')
+        } else if ( e.target.value === 'kelvin' ) {
+            setSelectValue('')
+        }
+    }
 
     const API_KEY = data1.API_KEY_WEATHER
 
@@ -27,12 +37,12 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     
 
     const handeCityName = e => setCity(e.target.value)
-    const URL_GET_WEATHER =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&lang=en`
+    const URL_GET_WEATHER =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}${selectValue}&lang=en`
 
     const request = e => {
         setErrorMessage(false);
-        e.preventDefault()
         setLoader(true)
+        e.preventDefault()
             const response = (fetch(URL_GET_WEATHER))
             response.then(response => response.json())
             .then(req => {
@@ -44,10 +54,9 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
                 setCountry(req.sys.country)
                 setLoader(false)
             })
-            .catch(() => {
+            .catch(err => {
                 setErrorMessage(true);
-                setMessage(data.message)
-                setCod(data.cod)
+                setMessage('city not found')
                 setLoader(false)
              });
     }
@@ -55,8 +64,8 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     return (
         <ServiceGetWeatherContext.Provider  value={{
             city, handeCityName, request, data, ikonID, timeOfDay,
-            description,name, country, loader, errorMessage, message,
-            cod}}>
+            description,name, country, loader, errorMessage, message, handleChangeUnit, selectValue
+            }}>
             {children}
         </ServiceGetWeatherContext.Provider>
     )

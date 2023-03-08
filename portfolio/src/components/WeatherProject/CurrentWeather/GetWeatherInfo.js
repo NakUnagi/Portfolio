@@ -14,8 +14,7 @@ const GetWeatherInfo = () => {
         name,
         loader,
         errorMessage,
-        message,
-        cod } = useContext(ServiceGetWeatherContext)
+        message, } = useContext(ServiceGetWeatherContext)
     const weatherInfo = [
         {
             id: 200,
@@ -327,18 +326,22 @@ const GetWeatherInfo = () => {
         : 
         <div className="weather-info-container data">
             <h2>{name}<img src={img.slice(11)} alt="icon"/></h2>
+            {/* new Date(1678252056).toLocaleTimeString() */}
         </div> }
         </>
     )
 
     const errorMSG = (
-        <p>{cod} {message}</p>
+        <div className="weather-info-container">
+            <p className="just-info">{message}</p>
+        </div>
     )
 
     return(
         <ServiceGetWeatherContextProvider>
-            {console.log(errorMessage)}
-            {errorMessage ? errorMSG : null || data ? weather : info}
+            {/* {console.log(errorMessage)} */}
+            {errorMessage ? errorMSG : null ||
+             data ? weather : info}
             
             
         </ServiceGetWeatherContextProvider>

@@ -4,9 +4,12 @@ import { ServiceGetWeatherContext } from './ServiceGetWeatherContext'
 import GetWeatherInfo from './GetWeatherInfo'
 
 
-const SearchCity = () => {
+const SearchCity =  () => {
 
-    const { handeCityName, request, data } = useContext(ServiceGetWeatherContext)
+      
+    
+
+    const { handeCityName, request, data, errorMessage, loader, handleChangeUnit, selectValue } = useContext(ServiceGetWeatherContext)
 
     return (
         <>
@@ -26,14 +29,26 @@ const SearchCity = () => {
                                     onChange={handeCityName}
                                     />
                                 </div>
+                                <div className="form-group mr-top-15">
+                                    <label>Choice of temperature unit.</label>
+                                    <select id="units" className="units form-select form-select-sm mr-top-15" 
+                                    aria-label=".form-select-sm units" 
+                                    onChange={handleChangeUnit}
+                                    defaultValue={'kelvin'}>
+                                        <option value="celsius">Celsius</option>
+                                        <option value="fahrenheit">Fahrenheit</option>
+                                        <option value="kelvin">Kelvin</option>
+                                    </select>
+                                </div>
                                 <button type="submit" className="mr-15-0 btn btn-dark dark-btn-mode" onClick={request}>Search</button>
                             </form>
                         {data && console.log(data)}
                         </ServiceGetWeatherContextProvider>
                     </div>
-                    <div className="border-line"></div>
-                    <div className={`col-md-8 als-center ${data && 'data'}`}>
+                    {/* <div className="border-line"></div> */}
+                    <div className={`col-md-8 als-center ${loader && 'txt-align-center'} ${data && errorMessage === false ?  'data' : null}`}>
                         <GetWeatherInfo />
+            {selectValue}
                     </div>
                 </div>
             </div>

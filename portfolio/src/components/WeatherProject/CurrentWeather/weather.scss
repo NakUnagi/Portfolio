@@ -14,6 +14,10 @@
         align-self: normal;
     }
 }
+.txt-align-center{
+    text-align: center;
+    align-self: center !important;
+}
 .border-content {
     border: 1px solid #fff;
     margin: 15px 0 0 0;
@@ -34,7 +38,7 @@
     }
 }
 .searchCityForm {
-    .form-control {
+    .form-control, .units {
         width: 75%;
         @media (max-width: 767px) {
             width: 55%;
