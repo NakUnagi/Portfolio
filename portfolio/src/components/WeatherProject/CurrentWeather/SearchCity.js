@@ -8,7 +8,7 @@ const SearchCity =  () => {
 
     const { 
         handeCityName, request, data, errorMessage, 
-        loader, handleChangeUnit, selectValue, 
+        loader, handleChangeUnit, 
     } = useContext(ServiceGetWeatherContext)
 
     return (

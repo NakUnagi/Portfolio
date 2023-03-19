@@ -8,7 +8,7 @@ const GetWeatherInfo = () => {
 
     const { 
         timeOfDay, data, loader, errorMessage,
-        message, 
+        message, selectValue,
     } = useContext(ServiceGetWeatherContext)
 
     const weatherInfo = [
@@ -297,8 +297,10 @@ const GetWeatherInfo = () => {
     ]
 
     let img = ''
+    let desc = ''
     const WeatherInfoItem = weatherInfo.map(item => {
         if (data && data.weather[0].id === item.id) {
+            desc = item.description
             if (item.id === 800 && timeOfDay === 'n') {
                 img = item.n
                 return img
@@ -315,6 +317,19 @@ const GetWeatherInfo = () => {
         </div>
     )
 
+    const tempUnit = () => {
+        if (selectValue === '') {
+            return <span>&#8490;</span>
+        } else if (selectValue === '&units=imperial') {
+            return <span>&#x2109;</span>
+        } else if (selectValue === '&units=metric') {
+            return <span>&#x2103;</span>
+        }
+    }
+
+    const country = data.sys.country
+    const CurrentTimeZone = new Date(data.time)
+
     const weather = (
         <>
         {loader 
@@ -323,8 +338,13 @@ const GetWeatherInfo = () => {
         : 
         <div className="weather-info-container data">
             <h2>{data.name}<img src={img.slice(11)} alt="icon"/></h2>
-            <p>perceptible temperature: {data.main.feels_like}</p>
-            {/* new Date(1678252056).toLocaleTimeString() */}
+            <p>Temperature: {Math.floor(data.main.temp)} {tempUnit()}</p>
+            <p>Perceptible temperature: {Math.floor(data.main.feels_like)} {tempUnit()}</p>
+            <p>{data.weather[0].main}: {desc}</p>
+            <p>Humidity: {data.main.humidity}%</p>
+            <p>Pressure: {data.main.pressure} hPa</p>
+            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: CurrentTimeZone})}</p>
+            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p>
         </div> }
         </>
     )
@@ -340,8 +360,6 @@ const GetWeatherInfo = () => {
             {/* {console.log(errorMessage)} */}
             {errorMessage ? errorMSG : null ||
              data ? weather : info}
-            
-            
         </ServiceGetWeatherContextProvider>
     )
 

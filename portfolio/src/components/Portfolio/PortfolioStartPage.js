@@ -8,13 +8,17 @@ const PortfolioStartPage = () => {
     return (
         <>
             <Nav />
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <Outlet />
+            <main>
+                <section>
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-md-12">
+                                <Outlet />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </section>
+            </main>
         </>
     )
 }
