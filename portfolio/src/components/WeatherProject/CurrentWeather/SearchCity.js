@@ -6,10 +6,10 @@ import GetWeatherInfo from './GetWeatherInfo'
 
 const SearchCity =  () => {
 
-      
-    
-
-    const { handeCityName, request, data, errorMessage, loader, handleChangeUnit, selectValue } = useContext(ServiceGetWeatherContext)
+    const { 
+        handeCityName, request, data, errorMessage, 
+        loader, handleChangeUnit, selectValue, 
+    } = useContext(ServiceGetWeatherContext)
 
     return (
         <>
@@ -48,7 +48,6 @@ const SearchCity =  () => {
                     {/* <div className="border-line"></div> */}
                     <div className={`col-md-8 als-center ${loader && 'txt-align-center'} ${data && errorMessage === false ?  'data' : null}`}>
                         <GetWeatherInfo />
-            {selectValue}
                     </div>
                 </div>
             </div>

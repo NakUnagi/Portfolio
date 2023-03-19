@@ -7,14 +7,10 @@ import Loader from "../../Loader";
 const GetWeatherInfo = () => {
 
     const { 
-        description, 
-        ikonID, 
-        timeOfDay, 
-        data, 
-        name,
-        loader,
-        errorMessage,
-        message, } = useContext(ServiceGetWeatherContext)
+        timeOfDay, data, loader, errorMessage,
+        message, 
+    } = useContext(ServiceGetWeatherContext)
+
     const weatherInfo = [
         {
             id: 200,
@@ -299,9 +295,10 @@ const GetWeatherInfo = () => {
             img: '../../media/weather_icons/cloudy.svg'
         },
     ]
+
     let img = ''
     const WeatherInfoItem = weatherInfo.map(item => {
-        if (ikonID === item.id) {
+        if (data && data.weather[0].id === item.id) {
             if (item.id === 800 && timeOfDay === 'n') {
                 img = item.n
                 return img
@@ -325,7 +322,8 @@ const GetWeatherInfo = () => {
         <Loader /> 
         : 
         <div className="weather-info-container data">
-            <h2>{name}<img src={img.slice(11)} alt="icon"/></h2>
+            <h2>{data.name}<img src={img.slice(11)} alt="icon"/></h2>
+            <p>perceptible temperature: {data.main.feels_like}</p>
             {/* new Date(1678252056).toLocaleTimeString() */}
         </div> }
         </>
