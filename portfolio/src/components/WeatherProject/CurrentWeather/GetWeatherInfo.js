@@ -327,8 +327,8 @@ const GetWeatherInfo = () => {
         }
     }
 
-    const country = data.sys.country
-    const CurrentTimeZone = new Date(data.time)
+    const country = data && data.sys.country
+    // const CurrentTimeZone = new Date(data.time)
 
     const weather = (
         <>
@@ -343,7 +343,8 @@ const GetWeatherInfo = () => {
             <p>{data.weather[0].main}: {desc}</p>
             <p>Humidity: {data.main.humidity}%</p>
             <p>Pressure: {data.main.pressure} hPa</p>
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: CurrentTimeZone})}</p>
+            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p>
+            {/* <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: CurrentTimeZone})}</p> */}
             <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p>
         </div> }
         </>
