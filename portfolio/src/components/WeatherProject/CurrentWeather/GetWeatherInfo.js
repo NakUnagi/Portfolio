@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ServiceGetWeatherContext, 
     ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
 import Loader from "../../Loader";
+import { getTimeZoneName } from '../getTimeZoneName'
 
 
 const GetWeatherInfo = () => {
@@ -328,7 +329,8 @@ const GetWeatherInfo = () => {
     }
 
     const country = data && data.sys.country
-    // const CurrentTimeZone = new Date(data.time)
+    const lat = data && data.coord.lat
+    const long = data && data.coord.lon
 
     const weather = (
         <>
@@ -358,7 +360,7 @@ const GetWeatherInfo = () => {
 
     return(
         <ServiceGetWeatherContextProvider>
-            {/* {console.log(errorMessage)} */}
+           {data && getTimeZoneName(lat, long)}
             {errorMessage ? errorMSG : null ||
              data ? weather : info}
         </ServiceGetWeatherContextProvider>

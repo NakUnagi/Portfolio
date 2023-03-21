@@ -16,6 +16,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [loader, setLoader] = useState(true)
     const [errorMessage, setErrorMessage] =useState(false)
     const [selectValue, setSelectValueParams] = useState('')
+    const [x, setX] =useState('')
 
     const handleChangeUnit = e => {
         if ( e.target.value === 'celsius' ) {
