@@ -2,14 +2,13 @@ import { useContext } from "react";
 import { ServiceGetWeatherContext, 
     ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
 import Loader from "../../Loader";
-import { getTimeZoneName } from '../getTimeZoneName'
 
 
 const GetWeatherInfo = () => {
 
     const { 
         timeOfDay, data, loader, errorMessage,
-        message, selectValue,
+        message, selectValue, timeZone,
     } = useContext(ServiceGetWeatherContext)
 
     const weatherInfo = [
@@ -328,9 +327,8 @@ const GetWeatherInfo = () => {
         }
     }
 
+    
     const country = data && data.sys.country
-    const lat = data && data.coord.lat
-    const long = data && data.coord.lon
 
     const weather = (
         <>
@@ -342,12 +340,12 @@ const GetWeatherInfo = () => {
             <h2>{data.name}<img src={img.slice(11)} alt="icon"/></h2>
             <p>Temperature: {Math.floor(data.main.temp)} {tempUnit()}</p>
             <p>Perceptible temperature: {Math.floor(data.main.feels_like)} {tempUnit()}</p>
-            <p>{data.weather[0].main}: {desc}</p>
+            <p>{data.weather[0].main}{desc.length > 0 && ':'} {desc}</p>
             <p>Humidity: {data.main.humidity}%</p>
             <p>Pressure: {data.main.pressure} hPa</p>
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p>
-            {/* <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: CurrentTimeZone})}</p> */}
-            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString()}</p>
+            {/* <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p> */}
+            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: timeZone})}</p>
+            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: timeZone})}</p>
         </div> }
         </>
     )
@@ -360,7 +358,6 @@ const GetWeatherInfo = () => {
 
     return(
         <ServiceGetWeatherContextProvider>
-           {data && getTimeZoneName(lat, long)}
             {errorMessage ? errorMSG : null ||
              data ? weather : info}
         </ServiceGetWeatherContextProvider>

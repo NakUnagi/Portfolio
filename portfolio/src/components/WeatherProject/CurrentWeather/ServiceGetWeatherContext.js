@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 const API_KEYS = {
     API_KEY_WEATHER: 'e2b8f759c9eb1a5eb0e514633411504f',
@@ -16,7 +16,22 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [loader, setLoader] = useState(true)
     const [errorMessage, setErrorMessage] =useState(false)
     const [selectValue, setSelectValueParams] = useState('')
-    const [x, setX] =useState('')
+    const [timeZone, setTimeZone] = useState('')
+
+    const API_KEY_TIMEZONE = '098ca779681449eba7cc7e76bb4367f0'
+
+    const lat = data && data.coord.lat
+    const long = data && data.coord.lon
+
+    const getTimeZoneName = (lat, long) => {
+    const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
+    req.then(data => data.json())
+    .then(body => {
+        setTimeZone(() => body.timezone) 
+    }).catch(err => {
+        console.error(err)
+        });
+    }
 
     const handleChangeUnit = e => {
         if ( e.target.value === 'celsius' ) {
@@ -51,11 +66,16 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
              });
     }
     
+
+    useEffect( () => {
+        getTimeZoneName(lat, long)
+    }, [lat, long])
+
     return (
         <ServiceGetWeatherContext.Provider  value={{
             handeCityName, request, data, 
             timeOfDay, loader, errorMessage, message, 
-            handleChangeUnit, selectValue,
+            handleChangeUnit, selectValue, timeZone,
             }}>
             {children}
         </ServiceGetWeatherContext.Provider>
