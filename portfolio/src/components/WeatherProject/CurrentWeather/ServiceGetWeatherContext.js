@@ -17,21 +17,15 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [errorMessage, setErrorMessage] =useState(false)
     const [selectValue, setSelectValueParams] = useState('')
     const [timeZone, setTimeZone] = useState('')
-
+    const [time12, setTime12] = useState('')
+    const [date, setDate] = useState('')
+    const [mainTemp, setMainTemp] = useState('')
+    const [mainFeelsLike, setMainFeelsLike] = useState('')
+    
     const API_KEY_TIMEZONE = '098ca779681449eba7cc7e76bb4367f0'
 
     const lat = data && data.coord.lat
     const long = data && data.coord.lon
-
-    const getTimeZoneName = (lat, long) => {
-    const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
-    req.then(data => data.json())
-    .then(body => {
-        setTimeZone(() => body.timezone) 
-    }).catch(err => {
-        console.error(err)
-        });
-    }
 
     const handleChangeUnit = e => {
         if ( e.target.value === 'celsius' ) {
@@ -40,6 +34,9 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             setSelectValueParams('&units=imperial')
         } else if ( e.target.value === 'kelvin' ) {
             setSelectValueParams('')
+        }
+        if(data) {
+            setTimeout(() => document.getElementById("myForm").click(), 100)
         }
     }
 
@@ -51,12 +48,16 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const request = e => {
         setErrorMessage(false);
         setLoader(true)
-        e.preventDefault()
+        if (e) {
+            e.preventDefault()
+        }
             const response = (fetch(URL_GET_WEATHER))
             response.then(response => response.json())
             .then(req => {
                 setData(() => req)
                 setTimeOfDay(req.weather[0].icon.slice(2,3))
+                setMainTemp(req.main.temp)
+                setMainFeelsLike(req.main.feels_like)
                 setLoader(false)
             })
             .catch(err => {
@@ -68,14 +69,27 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     
 
     useEffect( () => {
+        const getTimeZoneName = (lat, long) => {
+            const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
+            req.then(data => data.json())
+            .then(body => {
+                setTimeZone(() => body.timezone) 
+                setTime12(() => body.time_12) 
+                setDate(() => body.date)
+            }).catch(err => {
+                console.error(err)
+                });
+            }
+
         getTimeZoneName(lat, long)
-    }, [lat, long])
+    }, [data])
 
     return (
         <ServiceGetWeatherContext.Provider  value={{
             handeCityName, request, data, 
             timeOfDay, loader, errorMessage, message, 
             handleChangeUnit, selectValue, timeZone,
+            time12, date, mainTemp, mainFeelsLike
             }}>
             {children}
         </ServiceGetWeatherContext.Provider>

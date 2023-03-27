@@ -8,7 +8,8 @@ const GetWeatherInfo = () => {
 
     const { 
         timeOfDay, data, loader, errorMessage,
-        message, selectValue, timeZone,
+        message, selectValue, timeZone, time12,
+        date, mainTemp, mainFeelsLike
     } = useContext(ServiceGetWeatherContext)
 
     const weatherInfo = [
@@ -277,17 +278,20 @@ const GetWeatherInfo = () => {
         {
             id: 801,
             description: 'few clouds: 11-25%',
-            img: '../../media/weather_icons/cloudy.svg'
+            img: '../../media/weather_icons/cloudy-day-1.svg',
+            n: '../../media/weather_icons/cloudy-night-1.svg' 
         },
         {
             id: 802,
             description: 'scattered clouds: 25-50%',
-            img: '../../media/weather_icons/cloudy.svg'
+            img: '../../media/weather_icons/cloudy-day-2.svg',
+            n: '../../media/weather_icons/cloudy-night-2.svg'
         },
         {
             id: 803,
             description: 'broken clouds: 51-84%',
-            img: '../../media/weather_icons/cloudy.svg'
+            img: '../../media/weather_icons/cloudy-day-3.svg',
+            n: '../../media/weather_icons/cloudy-night-3.svg'
         },
         {
             id: 804,
@@ -301,7 +305,7 @@ const GetWeatherInfo = () => {
     const WeatherInfoItem = weatherInfo.map(item => {
         if (data && data.weather[0].id === item.id) {
             desc = item.description
-            if (item.id === 800 && timeOfDay === 'n') {
+            if (((item.id === 800) || (item.id === 801) || (item.id === 802) || (item.id === 803)) && (timeOfDay === 'n')) {
                 img = item.n
                 return img
             } else {
@@ -338,14 +342,15 @@ const GetWeatherInfo = () => {
         : 
         <div className="weather-info-container data">
             <h2>{data.name}<img src={img.slice(11)} alt="icon"/></h2>
-            <p>Temperature: {Math.floor(data.main.temp)} {tempUnit()}</p>
-            <p>Perceptible temperature: {Math.floor(data.main.feels_like)} {tempUnit()}</p>
+            <p>Current time: {time12}</p>
+            <p>Current date: {date}</p>
+            <p>Temperature: {Math.floor(mainTemp)} {tempUnit()}</p>
+            <p>Perceptible temperature: {Math.floor(mainFeelsLike)} {tempUnit()}</p>
             <p>{data.weather[0].main}{desc.length > 0 && ':'} {desc}</p>
             <p>Humidity: {data.main.humidity}%</p>
             <p>Pressure: {data.main.pressure} hPa</p>
-            {/* <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString()}</p> */}
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: timeZone})}</p>
-            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {timeZone: timeZone})}</p>
+            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}</p>
+            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}</p>
         </div> }
         </>
     )

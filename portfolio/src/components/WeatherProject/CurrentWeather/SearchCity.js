@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {ServiceGetWeatherContextProvider} from './ServiceGetWeatherContext'
 import { ServiceGetWeatherContext } from './ServiceGetWeatherContext'
 import GetWeatherInfo from './GetWeatherInfo'
@@ -40,9 +40,8 @@ const SearchCity =  () => {
                                         <option value="kelvin">Kelvin</option>
                                     </select>
                                 </div>
-                                <button type="submit" className="mr-15-0 btn btn-dark dark-btn-mode" onClick={request}>Search</button>
+                                <button id="myForm" type="submit" className="mr-15-0 btn btn-dark dark-btn-mode" onClick={request}>Search</button>
                             </form>
-                        {data && console.log(data)}
                         </ServiceGetWeatherContextProvider>
                     </div>
                     {/* <div className="border-line"></div> */}
