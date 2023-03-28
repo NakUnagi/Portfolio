@@ -15,7 +15,7 @@ const SearchCity =  () => {
         <>
             <div className="row p-15-0">
                 <div className="d-lg-flex">
-                    <div className="col-md-4">
+                    <div className="col-lg-4">
                         <ServiceGetWeatherContextProvider>
                             <form className="searchCityForm">
                                 <div className="form-group">
@@ -45,7 +45,8 @@ const SearchCity =  () => {
                         </ServiceGetWeatherContextProvider>
                     </div>
                     {/* <div className="border-line"></div> */}
-                    <div className={`col-md-8 als-center ${loader && 'txt-align-center'} ${data && errorMessage === false ?  'data' : null}`}>
+                    <div className={`col-lg-8 rwd-flex-center als-center ${loader && 'txt-align-center'}`}>
+                    {/* ${data && errorMessage === false ?  'data' : null} */}
                         <GetWeatherInfo />
                     </div>
                 </div>

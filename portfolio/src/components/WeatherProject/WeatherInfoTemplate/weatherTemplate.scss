@@ -1,0 +1,12 @@
+.weather-info-container {
+    display: flex;
+    justify-content: center;
+    .just-info {
+        margin: 0;
+        font-size: 33px;
+        font-weight: 200;
+    }
+    &.data{
+        display: block;
+    }
+}

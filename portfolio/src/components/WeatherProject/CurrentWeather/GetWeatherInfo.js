@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ServiceGetWeatherContext, 
     ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
 import Loader from "../../Loader";
+import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 
 
 const GetWeatherInfo = () => {
@@ -340,18 +341,23 @@ const GetWeatherInfo = () => {
         ? 
         <Loader /> 
         : 
-        <div className="weather-info-container data">
-            <h2>{data.name}<img src={img.slice(11)} alt="icon"/></h2>
-            <p>Current time: {time12}</p>
-            <p>Current date: {date}</p>
-            <p>Temperature: {Math.floor(mainTemp)} {tempUnit()}</p>
-            <p>Perceptible temperature: {Math.floor(mainFeelsLike)} {tempUnit()}</p>
-            <p>{data.weather[0].main}{desc.length > 0 && ':'} {desc}</p>
-            <p>Humidity: {data.main.humidity}%</p>
-            <p>Pressure: {data.main.pressure} hPa</p>
-            <p>Sunrise: {new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}</p>
-            <p>Sunset: {new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}</p>
-        </div> }
+        <WeatherInfoTemplate 
+            name={data.name}
+            img={img.slice(11)}
+            currentTime={time12}
+            date={date}
+            mainTemp={Math.floor(mainTemp)}
+            mainFeelsLike={Math.floor(mainFeelsLike)}
+            tempUnit={tempUnit()}
+            weather={data.weather[0].main}
+            descLength={desc.length > 0 && ':'}
+            desc={desc}
+            humidity={data.main.humidity}
+            pressure={data.main.pressure}
+            sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+            sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+        />
+        }
         </>
     )
 
