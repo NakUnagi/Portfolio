@@ -8,5 +8,19 @@
     }
     &.data{
         display: block;
+        border: 2px solid #397cb5;
+        padding: 20px;
+        background: #397cb5;
+        width: 400px;
+        border-radius: 30px;
     }
 }
+
+.center-block {
+    display: block;
+    text-align: center;
+    font-size: 45px;
+}
+// span {
+//     font-size: 10px;
+// }

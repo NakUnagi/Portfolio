@@ -15,7 +15,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [message, setMessage] = useState('')
     const [loader, setLoader] = useState(true)
     const [errorMessage, setErrorMessage] =useState(false)
-    const [selectValue, setSelectValueParams] = useState('')
+    const [selectValue, setSelectValueParams] = useState('&units=metric')
     const [timeZone, setTimeZone] = useState('')
     const [time12, setTime12] = useState('')
     const [date, setDate] = useState('')

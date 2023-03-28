@@ -11,10 +11,10 @@ const WeatherInfoTemplate = props => {
 
     return (
         <div className="weather-info-container data">
+            <p className="center-block">{mainTemp}<sup><sup><sub>{tempUnit}</sub></sup></sup></p>
             <h2>{name}<img src={img} alt="icon"/></h2>
             <p>Current time: {currentTime}</p>
             <p>Current date: {date}</p>
-            <p>Temperature: {mainTemp} {tempUnit}</p>
             <p>Perceptible temperature: {mainFeelsLike} {tempUnit}</p>
             <p>{weather}{descLength} {desc}</p>
             <p>Humidity: {humidity}%</p>

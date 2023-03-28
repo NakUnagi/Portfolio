@@ -34,7 +34,7 @@ const SearchCity =  () => {
                                     <select id="units" className="units form-select form-select-sm mr-top-15" 
                                     aria-label=".form-select-sm units" 
                                     onChange={handleChangeUnit}
-                                    defaultValue={'kelvin'}>
+                                    defaultValue={'celsius'}>
                                         <option value="celsius">Celsius</option>
                                         <option value="fahrenheit">Fahrenheit</option>
                                         <option value="kelvin">Kelvin</option>
