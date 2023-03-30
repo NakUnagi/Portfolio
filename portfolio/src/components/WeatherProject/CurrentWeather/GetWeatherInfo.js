@@ -10,7 +10,7 @@ const GetWeatherInfo = () => {
     const { 
         timeOfDay, data, loader, errorMessage,
         message, selectValue, timeZone, time12,
-        date, mainTemp, mainFeelsLike
+        date, mainTemp, mainFeelsLike, currentDay
     } = useContext(ServiceGetWeatherContext)
 
     const weatherInfo = [
@@ -345,6 +345,7 @@ const GetWeatherInfo = () => {
             name={data.name}
             img={img.slice(11)}
             currentTime={time12}
+            currentDay={currentDay}
             date={date}
             mainTemp={Math.floor(mainTemp)}
             mainFeelsLike={Math.floor(mainFeelsLike)}

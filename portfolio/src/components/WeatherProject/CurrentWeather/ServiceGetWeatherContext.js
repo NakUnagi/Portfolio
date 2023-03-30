@@ -21,6 +21,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [date, setDate] = useState('')
     const [mainTemp, setMainTemp] = useState('')
     const [mainFeelsLike, setMainFeelsLike] = useState('')
+    const [currentDay, setCurrentDay] = useState('')
     
     const API_KEY_TIMEZONE = '098ca779681449eba7cc7e76bb4367f0'
 
@@ -76,6 +77,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
                 setTimeZone(() => body.timezone) 
                 setTime12(() => body.time_12) 
                 setDate(() => body.date)
+                setCurrentDay(() => body.date_time_txt.split(',')[0])
             }).catch(err => {
                 console.error(err)
                 });
@@ -89,7 +91,8 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             handeCityName, request, data, 
             timeOfDay, loader, errorMessage, message, 
             handleChangeUnit, selectValue, timeZone,
-            time12, date, mainTemp, mainFeelsLike
+            time12, date, mainTemp, mainFeelsLike,
+            currentDay
             }}>
             {children}
         </ServiceGetWeatherContext.Provider>

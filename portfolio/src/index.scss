@@ -8,17 +8,59 @@ body  {
     // background: #897878 !important;
     color: #fff !important;
 }
+.flex-center-space-between {
+    align-items: center;
+    justify-content: space-between;
+}
+.uppercase {
+    text-transform: uppercase;
+}
 .font-10 {
     font-size: 10px;
 }
+.font-18{
+    font-size: 18px;
+    &.body {
+        @media (max-width: 434px) {
+            font-size: 15px;
+        }
+        @media (max-width: 372px) {
+            font-size: 12px;
+        }
+    }
+}
+.font-20 {
+    font-size: 20px;
+}
+.font-45 {
+    font-size: 45px;
+}
+.font-600 {
+    font-weight: 600;
+}
+.p-right-10{
+    padding-right: 10px;
+}
 .p-15-0 {
     padding: 15px 0;
+}
+.p-right-15 {
+    padding-right: 15px;
 }
 .mr-15-0 {
     margin: 15px 0;
 }
 .mr-top-15 {
     margin-top: 15px;
+}
+.mr-right-5 {
+    margin-right: 5px;
+}
+.mr-bott-25 {
+    margin: 0 0 25px 0;
+}
+.mr-0 {
+    margin: 0;
 }
 .als-center {
     align-self: center;
