@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { ServiceGetWeatherContext, 
-    ServiceGetWeatherContextProvider } from './ServiceGetWeatherContext';
+    ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext';
 import Loader from "../../Loader";
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 

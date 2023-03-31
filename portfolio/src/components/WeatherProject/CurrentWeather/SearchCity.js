@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import {ServiceGetWeatherContextProvider} from './ServiceGetWeatherContext'
-import { ServiceGetWeatherContext } from './ServiceGetWeatherContext'
+import {ServiceGetWeatherContextProvider, 
+    ServiceGetWeatherContext} from '../WeatherServices/ServiceGetWeatherContext'
 import GetWeatherInfo from './GetWeatherInfo'
 
 
