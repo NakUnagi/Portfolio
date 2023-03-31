@@ -1,12 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext } from 'react'
 import { ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext'
-import { ServiceGetWetherMultiDaysForecastContext, ServiceGetWetherMultiDaysForecastProvider } from '../WeatherServices/ServiceGetWetherMultiDaysForecastContext'
-import SearchCity from "./SearchCity";
+import SearchCity from "./SearchCity"
 import './weather.scss'
 
 const WeatherPage = () => {
-    
-    const { test } = useContext(ServiceGetWetherMultiDaysForecastContext)
 
     return (
         <>
@@ -23,13 +20,6 @@ const WeatherPage = () => {
                 <ServiceGetWeatherContextProvider>
                     <SearchCity />
                 </ServiceGetWeatherContextProvider>
-                <div>
-                    {/* <ServiceGetWetherMultiDaysForecastProvider>
-                        <div>
-                            test {console.log(test)}
-                        </div>
-                    </ServiceGetWetherMultiDaysForecastProvider> */}
-                </div>
            </div>
         </>
     )
