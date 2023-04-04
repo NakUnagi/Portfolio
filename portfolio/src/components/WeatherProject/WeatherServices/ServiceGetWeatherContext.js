@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect } from "react";
 
 const API_KEYS = {
     API_KEY_WEATHER: 'e2b8f759c9eb1a5eb0e514633411504f',
-    API_KEY_AGROMONITORING: '14b7a5d07f303ffa07da4e96f2900de7',
 }
 
 export const ServiceGetWeatherContext = createContext()

@@ -12,7 +12,7 @@ const Clock = ({time, PM_AM}) => {
     useEffect(() => {
         setHours(parseInt(time[0]))
         setMinutes(parseInt(time[1]))
-        setSeconds(parseInt(time[2]))
+        setSeconds(parseInt(time[2])+1)
 
         let timer = setInterval(() => countSeconds(), 1000)
         console.log(1)
