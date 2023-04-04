@@ -3,6 +3,7 @@ import { ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetW
 import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
 import SearchCity from "./SearchCity"
 import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
+import Swiper from '../../Swiper/Swiper'
 import './weather.scss'
 
 const WeatherPage = () => {
@@ -18,9 +19,10 @@ const WeatherPage = () => {
                             </h1>
                     </div>
                     </div>
-                    <ServiceMultiWeatherForecastContextProvider>
+                    <Swiper />
+                    {/* <ServiceMultiWeatherForecastContextProvider>
                         <MultiWeatherPage />
-                    </ServiceMultiWeatherForecastContextProvider>
+                    </ServiceMultiWeatherForecastContextProvider> */}
                 </div>
                 <ServiceGetWeatherContextProvider>
                     <SearchCity />

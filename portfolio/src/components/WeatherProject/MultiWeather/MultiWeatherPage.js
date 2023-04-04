@@ -4,13 +4,17 @@ import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecast
 const MultiWeatherPage = () => {
     
 
-    const { req, data2 } = useContext(ServiceMultiWeatherForecastContext)
+    const { req, bodyRequest } = useContext(ServiceMultiWeatherForecastContext)
+
+    const singleDay = Object.entries(bodyRequest).map(day => {
+       return  new Date((day[1].dt) * 1000).toLocaleString()
+    })
 
 
     return (
         <ServiceMultiWeatherForecastContextProvider>
             <button onClick={req}>Click</button>
-            {data2 && console.log(data2)}
+            {bodyRequest && console.log(singleDay)}
         </ServiceMultiWeatherForecastContextProvider>
     )
 }

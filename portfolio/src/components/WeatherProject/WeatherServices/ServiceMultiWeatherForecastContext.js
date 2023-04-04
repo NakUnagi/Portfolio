@@ -8,7 +8,7 @@ export const ServiceMultiWeatherForecastContext = createContext()
 
 export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
 
-    const [data2, setData] = useState('')
+    const [bodyRequest, setBodyRequest] = useState('')
 
     const API_KEY = API_KEYS.API_KEY_AGROMONITORING
     const URL = `https://api.agromonitoring.com/agro/1.0/weather/forecast?lat=35&lon=139&appid=${API_KEY}`
@@ -17,18 +17,15 @@ export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
         const request = (fetch(URL))
         request.then(res => res.json())
             .then(body => {
-                setData(() => body)
+                setBodyRequest(() => body)
             })
             .catch(err => {
                 console.log(err)
 
              });
     }
-    // useEffect(() => {
-    //     req()
-    // }, [data2])
     return (
-        <ServiceMultiWeatherForecastContext.Provider value={{req, data2}}>
+        <ServiceMultiWeatherForecastContext.Provider value={{req, bodyRequest}}>
             {children}
         </ServiceMultiWeatherForecastContext.Provider>
     )

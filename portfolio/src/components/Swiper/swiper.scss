@@ -1,0 +1,11 @@
+.swiper-container {
+    .swiper-body {
+        display: flex;
+        .swiper-slide {
+            visibility: hidden;
+            &.active {
+                visibility: visible;
+            }
+        }
+    }
+}
