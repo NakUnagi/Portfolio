@@ -1,25 +1,27 @@
 .swiper-container {
-    display: flex;
-    height: 600px;
-    width: 600px;
-    text-align: center;
-    justify-content: center;
+    // display: flex;
+    // height: 600px;
+    // width: 600px;
+    // text-align: center;
+    // justify-content: center;
     .swiper-body {
         height: 600px;
         width: 100%;
-        max-width: 600px;
+        max-width: 500px;
         display: flex;
         text-align: center;
         position: relative;
         .slide {
+            // background: #444;
             display: flex;
             overflow-x: scroll;
+            overflow-y: hidden;
+            overflow-x: hidden;
             position: relative;
             scroll-behavior: smooth;
             scroll-snap-type: x mandatory;
             .swiper-slide {
                 visibility: hidden;
-
                 &.active {
                     display: flex;
                     justify-content: center;
