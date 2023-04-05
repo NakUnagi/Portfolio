@@ -1,10 +1,37 @@
 .swiper-container {
+    display: flex;
+    height: 600px;
+    width: 600px;
+    text-align: center;
+    justify-content: center;
     .swiper-body {
+        height: 600px;
+        width: 100%;
+        max-width: 600px;
         display: flex;
-        .swiper-slide {
-            visibility: hidden;
-            &.active {
-                visibility: visible;
+        text-align: center;
+        position: relative;
+        .slide {
+            display: flex;
+            overflow-x: scroll;
+            position: relative;
+            scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            .swiper-slide {
+                visibility: hidden;
+
+                &.active {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    visibility: visible;
+                    height: 600px;
+                    width: 100%;
+                    flex-shrink: 0;
+                    transform-origin: center center;
+                    transform: scale(1);
+                    scroll-snap-align: center;
+                }
             }
         }
     }

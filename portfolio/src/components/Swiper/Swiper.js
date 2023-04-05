@@ -3,71 +3,102 @@ import './swiper.scss'
 
 const Swiper = () => {
 
-    const [visibility, setVisibility] = useState('active')
-    const [activeSlide, setActiveSlaid] = useState(null)
+    const visibility = 'active'
     const prev = 'prev'
     const next = 'next'
     let slidesArray = []
-
-const setActive = () => {
-    console.log('active')
-    slidesArray = []
-    document.querySelectorAll('.swiper-slide').forEach(el => {
-        slidesArray.push(el)
-        setActiveSlaid(slidesArray[0])
-    })
-}
-
-const showFirstSlide = () => {
-    console.log('show')
-    setActive()
-    activeSlide.classList.add(visibility)
-}
+    let slideToDisplay
+    let nexIndex
+    let lengthArr
+    
+    const startElement = () => document.querySelectorAll('.swiper-slide').forEach(el => {
+                slidesArray.push(el)
+                lengthArr = slidesArray.length - 1
+                slideToDisplay = slidesArray[0]
+            })
 
 const ShowSlide = activeElement => {
-    setActive()
     activeElement.classList.add(visibility)
 }
 
 const ChangeSlide = type => {
-    console.log('change')
-    activeSlide.classList.remove(visibility)
-    setActive()
+    slideToDisplay.classList.remove(visibility)
     if ( type === 'next' ) {
-        console.log('if')
-        let nexIndex = slidesArray.indexOf(activeSlide) + 1
-        setActiveSlaid(slidesArray[nexIndex])
-        ShowSlide(activeSlide)
-
+        nexIndex += 1
+        slideToDisplay = slidesArray[nexIndex]
+        ShowSlide(slideToDisplay)
     }
 
+    if ( type === 'prev' ) {
+        nexIndex -= 1
+        slideToDisplay = slidesArray[nexIndex]
+        ShowSlide(slideToDisplay)
+    }
+    isLastElement()
+}
+const isLastElement = () => {
+        if(nexIndex === lengthArr) {
+            document.getElementById('next').disabled = true
+        } else {
+            document.getElementById('next').disabled = false
+        }
+
+        if ( nexIndex === 0 ) {
+            document.getElementById('prev').disabled = true
+        } else {
+            document.getElementById('prev').disabled = false
+        }
 }
 
 useEffect(() => {
-    setActive()
+    startElement()
+    nexIndex = slidesArray.indexOf(slideToDisplay)
+    isLastElement()
 }, [])
 
+useEffect(() => {
+    slideToDisplay && slideToDisplay.classList.add(visibility)
+}, [slideToDisplay])
     return (
         <>
             <div className="swiper-container">
                 <div className="swiper-body">
-                    <button onClick={showFirstSlide}>cc</button>
-                    <div className={`swiper-slide`}>
-                        <p>SLIDER1</p>
-                    </div>
-                    <div className={`swiper-slide `}>
-                        <p>SLIDER2</p>
-                    </div>
-                    <div className={`swiper-slide `}>
-                        <p>SLIDER3</p>
-                    </div>
-                    <div className={`swiper-slide `}>
-                        <p>SLIDER4</p>
-                    </div>
+                   <div className="slide">
+                        <div className="swiper-slide">
+                            <p>SLIDER1</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER2</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER3</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER4</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER5</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER6</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER7</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER8</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER9</p>
+                        </div>
+                        <div className="swiper-slide">
+                            <p>SLIDER10</p>
+                        </div>
+                   </div>
                 </div>
                 <div className="swiper-footer">
-                    <button onClick={() => ChangeSlide(prev)}> ← </button>
-                    <button onClick={() => ChangeSlide(next)}> → </button>
+                    <button id="prev" onClick={() => ChangeSlide(prev)}> ← </button>
+                    <button id="next" onClick={() => ChangeSlide(next)}> → </button>
                 </div>
             </div>
         </>
