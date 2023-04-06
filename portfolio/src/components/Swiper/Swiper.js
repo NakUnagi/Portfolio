@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './swiper.scss'
 
-const Swiper = () => {
+const Swiper = props => {
 
     const visibility = 'active'
     const prev = 'prev'
@@ -10,12 +10,15 @@ const Swiper = () => {
     let slideToDisplay
     let nexIndex
     let lengthArr
-    
+
     const startElement = () => document.querySelectorAll('.swiper-slide').forEach(el => {
-                slidesArray.push(el)
-                lengthArr = slidesArray.length - 1
-                slideToDisplay = slidesArray[0]
-            })
+        slidesArray.push(el)
+        lengthArr = slidesArray.length - 1
+        slideToDisplay = slidesArray[0]
+        slideToDisplay.classList.add(visibility)
+    })
+
+    
 
 const ShowSlide = activeElement => {
     activeElement.classList.add(visibility)
@@ -49,51 +52,23 @@ const isLastElement = () => {
             document.getElementById('prev').disabled = false
         }
 }
-
 useEffect(() => {
     startElement()
     nexIndex = slidesArray.indexOf(slideToDisplay)
     isLastElement()
-}, [])
+
+}, [props.slideProps])
 
 useEffect(() => {
     slideToDisplay && slideToDisplay.classList.add(visibility)
 }, [slideToDisplay])
+
     return (
         <>
             <div className="swiper-container">
                 <div className="swiper-body">
                    <div className="slide">
-                        <div className="swiper-slide">
-                            <p>SLIDER1</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER2</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER3</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER4</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER5</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER6</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER7</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER8</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER9</p>
-                        </div>
-                        <div className="swiper-slide">
-                            <p>SLIDER10</p>
-                        </div>
+                        {props.slideProps}
                    </div>
                 </div>
                 <div className="swiper-footer">

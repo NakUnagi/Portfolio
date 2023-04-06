@@ -370,8 +370,8 @@ const GetWeatherInfo = () => {
 
     return(
         <ServiceGetWeatherContextProvider>
-            {errorMessage ? errorMSG : null ||
-             data ? weather : info}
+            {/* {errorMessage ? errorMSG : null ||
+             data ? weather : info} */}
         </ServiceGetWeatherContextProvider>
     )
 

@@ -5,6 +5,7 @@ import SearchCity from "./SearchCity"
 import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
 import './weather.scss'
 
+
 const WeatherPage = () => {
 
     return (
