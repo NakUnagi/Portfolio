@@ -3,6 +3,9 @@ import { ServiceGetWeatherContext,
     ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext';
 import Loader from "../../Loader";
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
+import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
+import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
+
 
 
 const GetWeatherInfo = () => {
@@ -369,10 +372,16 @@ const GetWeatherInfo = () => {
     )
 
     return(
-        <ServiceGetWeatherContextProvider>
-            {/* {errorMessage ? errorMSG : null ||
-             data ? weather : info} */}
-        </ServiceGetWeatherContextProvider>
+        <>
+            <ServiceGetWeatherContextProvider>
+            {errorMessage ? errorMSG : null ||
+             data ? weather : info}
+            </ServiceGetWeatherContextProvider>
+            <ServiceMultiWeatherForecastContextProvider>
+            {errorMessage ? errorMSG : null ||
+             data ? <MultiWeatherPage /> : info}
+            </ServiceMultiWeatherForecastContextProvider>
+        </>
     )
 
 }

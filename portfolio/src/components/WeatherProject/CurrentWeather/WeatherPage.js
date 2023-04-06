@@ -1,8 +1,6 @@
 import React from 'react'
 import { ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext'
-import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
 import SearchCity from "./SearchCity"
-import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
 import './weather.scss'
 
 
@@ -19,9 +17,6 @@ const WeatherPage = () => {
                             </h1>
                     </div>
                     </div>
-                    <ServiceMultiWeatherForecastContextProvider>
-                        <MultiWeatherPage />
-                    </ServiceMultiWeatherForecastContextProvider>
                 </div>
                 <ServiceGetWeatherContextProvider>
                     <SearchCity />

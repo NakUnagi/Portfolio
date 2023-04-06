@@ -1,9 +1,13 @@
 import React, { useContext, useEffect } from "react";
+import { ServiceGetWeatherContext } from '../WeatherServices/ServiceGetWeatherContext';
 import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 import Swiper from '../../Swiper/Swiper'
 
  const MultiWeatherPage = props => {
+    const { 
+        data,
+    } = useContext(ServiceGetWeatherContext)
 
     const { req, bodyRequest } = useContext(ServiceMultiWeatherForecastContext)
 
@@ -17,7 +21,7 @@ import Swiper from '../../Swiper/Swiper'
             forecastDayArray.push(
                 <div className="swiper-slide" key={day[1].dt}>
                     <WeatherInfoTemplate 
-                        name={day[1].dt}
+                        name={data.name}
                         img={day[1]}
                         currentTime={day[1]}
                         currentDay={currentDay}
@@ -37,12 +41,11 @@ import Swiper from '../../Swiper/Swiper'
             ) 
         )
     })
-    
+
     return (
         <ServiceMultiWeatherForecastContextProvider>
             <button onClick={req}>Click</button>
-            <Swiper slideProps={forecastDayArray}/>
-            {/* {forecastDayArray} */}
+                <Swiper slideProps={forecastDayArray}/>
             {bodyRequest && console.log(forecastDayArray)}
         </ServiceMultiWeatherForecastContextProvider>
     )
