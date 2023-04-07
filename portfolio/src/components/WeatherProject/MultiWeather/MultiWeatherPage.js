@@ -22,7 +22,7 @@ import Swiper from '../../Swiper/Swiper'
                 <div className="swiper-slide" key={day[1].dt}>
                     <WeatherInfoTemplate 
                         name={data.name}
-                        img={day[1]}
+                        // img={day[1]}
                         currentTime={day[1]}
                         currentDay={currentDay}
                         // date={day[1]}

@@ -4,7 +4,8 @@ import { ServiceGetWeatherContext,
 import Loader from "../../Loader";
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
-import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
+import { ServiceMultiWeatherForecastContextProvider } from '../WeatherServices/ServiceMultiWeatherForecastContext'
+import { WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
 
 
 
@@ -325,15 +326,15 @@ const GetWeatherInfo = () => {
         </div>
     )
 
-    const tempUnit = () => {
-        if (selectValue === '') {
-            return <span>&#8490;</span>
-        } else if (selectValue === '&units=imperial') {
-            return <span>&#x2109;</span>
-        } else if (selectValue === '&units=metric') {
-            return <span>&#x2103;</span>
-        }
-    }
+    // const tempUnit = () => {
+    //     if (selectValue === '') {
+    //         return <span>&#8490;</span>
+    //     } else if (selectValue === '&units=imperial') {
+    //         return <span>&#x2109;</span>
+    //     } else if (selectValue === '&units=metric') {
+    //         return <span>&#x2103;</span>
+    //     }
+    // }
 
     
     const country = data && data.sys.country
@@ -347,12 +348,12 @@ const GetWeatherInfo = () => {
         <WeatherInfoTemplate 
             name={data.name}
             img={img.slice(11)}
-            currentTime={time12}
+            // currentTime={time12}
             currentDay={currentDay}
             date={date}
             mainTemp={Math.floor(mainTemp)}
             mainFeelsLike={Math.floor(mainFeelsLike)}
-            tempUnit={tempUnit()}
+            // tempUnit={tempUnit()}
             weather={data.weather[0].main}
             descLength={desc.length > 0 && ':'}
             desc={desc}
@@ -372,16 +373,31 @@ const GetWeatherInfo = () => {
     )
 
     return(
-        <>
+       <>
             <ServiceGetWeatherContextProvider>
-            {errorMessage ? errorMSG : null ||
-             data ? weather : info}
+                <WeatherInfoTemplateContextProvioder>
+                    {errorMessage ? errorMSG : null ||
+                    data ? weather : info}
+                </WeatherInfoTemplateContextProvioder>
             </ServiceGetWeatherContextProvider>
             <ServiceMultiWeatherForecastContextProvider>
-            {errorMessage ? errorMSG : null ||
-             data ? <MultiWeatherPage /> : info}
+                <WeatherInfoTemplateContextProvioder>
+                    {errorMessage ? errorMSG : null ||
+                    data ? <MultiWeatherPage /> : info}
+                </WeatherInfoTemplateContextProvioder>
             </ServiceMultiWeatherForecastContextProvider>
-        </>
+       </>
+
+            // <WeatherInfoTemplateContextProvioder>
+            //     <ServiceGetWeatherContextProvider>
+            //         {errorMessage ? errorMSG : null ||
+            //         data ? weather : info}
+            //     </ServiceGetWeatherContextProvider>
+            //     <ServiceMultiWeatherForecastContextProvider>
+            //         {errorMessage ? errorMSG : null ||
+            //         data ? <MultiWeatherPage /> : info}
+            //     </ServiceMultiWeatherForecastContextProvider>
+            // </WeatherInfoTemplateContextProvioder>
     )
 
 }
