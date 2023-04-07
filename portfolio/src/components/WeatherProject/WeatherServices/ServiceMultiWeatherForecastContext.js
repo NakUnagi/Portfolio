@@ -1,4 +1,5 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
+import {ServiceGetWeatherContext} from './ServiceGetWeatherContext'
 
 const API_KEYS = {
     API_KEY_AGROMONITORING: '14b7a5d07f303ffa07da4e96f2900de7'
@@ -7,11 +8,11 @@ const API_KEYS = {
 export const ServiceMultiWeatherForecastContext = createContext()
 
 export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
-
+    const { data, lat, long, selectValue } = useContext(ServiceGetWeatherContext)
     const [bodyRequest, setBodyRequest] = useState('')
 
     const API_KEY = API_KEYS.API_KEY_AGROMONITORING
-    const URL = `https://api.agromonitoring.com/agro/1.0/weather/forecast?lat=35&lon=139&appid=${API_KEY}`
+    const URL = `https://api.agromonitoring.com/agro/1.0/weather/forecast?lat=${lat}&lon=${long}&appid=${API_KEY}${selectValue}`
 
     const req = () => {
         const request = (fetch(URL))

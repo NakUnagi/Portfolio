@@ -91,7 +91,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             timeOfDay, loader, errorMessage, message, 
             handleChangeUnit, selectValue, timeZone,
             time12, date, mainTemp, mainFeelsLike,
-            currentDay
+            currentDay, lat, long
             }}>
             {children}
         </ServiceGetWeatherContext.Provider>
