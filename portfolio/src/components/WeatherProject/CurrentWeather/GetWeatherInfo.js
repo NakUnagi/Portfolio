@@ -83,8 +83,7 @@ const GetWeatherInfo = () => {
             </ServiceGetWeatherContextProvider>
             <ServiceMultiWeatherForecastContextProvider>
                 <WeatherInfoTemplateContextProvioder>
-                    {errorMessage ? errorMSG : null ||
-                    data ? <MultiWeatherPage /> : info}
+                    { data && <MultiWeatherPage />}
                 </WeatherInfoTemplateContextProvioder>
             </ServiceMultiWeatherForecastContextProvider>
        </>
