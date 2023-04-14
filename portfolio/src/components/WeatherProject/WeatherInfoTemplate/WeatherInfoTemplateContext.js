@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { ServiceGetWeatherContext } from '../WeatherServices/ServiceGetWeatherContext'
-
 import './weatherTemplate.scss'
 
 export const WeatherInfoTemplateContext = createContext()
@@ -8,7 +7,7 @@ export const WeatherInfoTemplateContext = createContext()
 export const WeatherInfoTemplateContextProvioder = ({children}) => {
 
     const { 
-        date, selectValue, time12
+        date, selectValue, time12,
     } = useContext(ServiceGetWeatherContext)
 
     const tempUnit = () => {
@@ -49,7 +48,7 @@ export const WeatherInfoTemplateContextProvioder = ({children}) => {
 
     return (
         <WeatherInfoTemplateContext.Provider 
-        value={{ tempUnitTransform, year, month, day, tempUnit, PM_AM, timeArray, setData2 }}
+        value={{ tempUnitTransform, year, month, day, tempUnit, PM_AM, timeArray, setData2, }}
         >
             {children}
             {/* {console.log(`tempUnitTransform ${tempUnitTransform}`)}

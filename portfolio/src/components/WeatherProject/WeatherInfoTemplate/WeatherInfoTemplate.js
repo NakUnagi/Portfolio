@@ -2,60 +2,18 @@ import React, { useContext, useEffect } from "react";
 import { WeatherInfoTemplateContext, WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
 import Clock from '../../Clock'
 import './weatherTemplate.scss'
-import weatherInfo from '../weatherInfoJSON'
-import { ServiceGetWeatherContext, 
-    ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext';
 
 const WeatherInfoTemplate = props => {
 
     const { 
-        name, currentTime, date,
+        name, currentTime, date, img, desc,
         mainTemp, mainFeelsLike, weather,
         descLength, humidity, pressure, sunrise, 
         sunset, currentDay
     } = props
 
-    const { 
-        timeOfDay, data,
-    } = useContext(ServiceGetWeatherContext)
-
-    const { tempUnitTransform, year, month, day, PM_AM, timeArray
+    const { tempUnitTransform, year, month, day, PM_AM, timeArray, 
     } = useContext(WeatherInfoTemplateContext)
-
-    let img = ''
-    let desc = ''
-    weatherInfo.map(item => {
-        if (data && data.weather[0].id === item.id) {
-            desc = item.description
-            if (((item.id === 800) || (item.id === 801) || (item.id === 802) || (item.id === 803)) && (timeOfDay === 'n')) {
-                img = item.n
-                img = img.slice(11)
-                // return img
-            } else {
-                img = item.img
-                img = img.slice(11)
-                // return img
-            }
-        }
-    } )
-
-    // useEffect(() => {
-    //     weatherInfo.map(item => {
-    //         if (data && data.weather[0].id === item.id) {
-    //             desc = item.description
-    //             if (((item.id === 800) || (item.id === 801) || (item.id === 802) || (item.id === 803)) && (timeOfDay === 'n')) {
-    //                 img = item.n
-    //                 img = img.slice(11)
-    //                 return img
-    //             } else {
-    //                 img = item.img
-    //                 img = img.slice(11)
-    //                 return img
-    //             }
-    //         }
-    //     } )
-
-    // }, [img, desc])
     
     return (
         <>
