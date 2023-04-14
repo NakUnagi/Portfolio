@@ -19,7 +19,7 @@ export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
         request.then(res => res.json())
             .then(body => {
                 setBodyRequest(() => body)
-                console.log(body)
+                // console.log(body)
             })
             .catch(err => {
                 console.log(err)

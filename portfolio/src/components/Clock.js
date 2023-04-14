@@ -15,7 +15,6 @@ const Clock = ({time, PM_AM}) => {
         setSeconds(parseInt(time[2])+1)
 
         let timer = setInterval(() => countSeconds(), 1000)
-        console.log(1)
 
         return () => {
             clearInterval(timer)

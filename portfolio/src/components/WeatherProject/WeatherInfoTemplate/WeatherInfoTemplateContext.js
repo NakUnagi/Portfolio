@@ -52,13 +52,13 @@ export const WeatherInfoTemplateContextProvioder = ({children}) => {
         value={{ tempUnitTransform, year, month, day, tempUnit, PM_AM, timeArray, setData2 }}
         >
             {children}
-            {console.log(`tempUnitTransform ${tempUnitTransform}`)}
+            {/* {console.log(`tempUnitTransform ${tempUnitTransform}`)}
             {console.log(`year ${year}`)}
             {console.log(`month ${month}`)}
             {console.log(`day ${day}`)}
             {console.log(`tempUnit ${tempUnit}`)}
             {console.log(`PM_AM ${PM_AM}`)}
-            {console.log(`timeArray ${timeArray}`)}
+            {console.log(`timeArray ${timeArray}`)} */}
         </WeatherInfoTemplateContext.Provider>
     )
 

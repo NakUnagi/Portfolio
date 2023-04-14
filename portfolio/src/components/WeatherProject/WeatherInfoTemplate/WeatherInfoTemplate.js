@@ -1,19 +1,61 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { WeatherInfoTemplateContext, WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
 import Clock from '../../Clock'
 import './weatherTemplate.scss'
+import weatherInfo from '../weatherInfoJSON'
+import { ServiceGetWeatherContext, 
+    ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext';
 
 const WeatherInfoTemplate = props => {
 
     const { 
-        name, img, currentTime, date,
+        name, currentTime, date,
         mainTemp, mainFeelsLike, weather,
-        descLength, desc, humidity, pressure, sunrise, 
+        descLength, humidity, pressure, sunrise, 
         sunset, currentDay
     } = props
 
+    const { 
+        timeOfDay, data,
+    } = useContext(ServiceGetWeatherContext)
+
     const { tempUnitTransform, year, month, day, PM_AM, timeArray
     } = useContext(WeatherInfoTemplateContext)
+
+    let img = ''
+    let desc = ''
+    weatherInfo.map(item => {
+        if (data && data.weather[0].id === item.id) {
+            desc = item.description
+            if (((item.id === 800) || (item.id === 801) || (item.id === 802) || (item.id === 803)) && (timeOfDay === 'n')) {
+                img = item.n
+                img = img.slice(11)
+                // return img
+            } else {
+                img = item.img
+                img = img.slice(11)
+                // return img
+            }
+        }
+    } )
+
+    // useEffect(() => {
+    //     weatherInfo.map(item => {
+    //         if (data && data.weather[0].id === item.id) {
+    //             desc = item.description
+    //             if (((item.id === 800) || (item.id === 801) || (item.id === 802) || (item.id === 803)) && (timeOfDay === 'n')) {
+    //                 img = item.n
+    //                 img = img.slice(11)
+    //                 return img
+    //             } else {
+    //                 img = item.img
+    //                 img = img.slice(11)
+    //                 return img
+    //             }
+    //         }
+    //     } )
+
+    // }, [img, desc])
     
     return (
         <>
@@ -24,7 +66,8 @@ const WeatherInfoTemplate = props => {
                             <img src={img} alt="icon"/>
                         </div>
                         <div>
-                            <Clock time={timeArray} PM_AM={PM_AM}/>
+                            <Clock time={timeArray} PM_AM={PM_AM}/>/
+                            {timeArray}
                         </div>
                     </div>
                     <div className="d-block text-center mr-bott-25">

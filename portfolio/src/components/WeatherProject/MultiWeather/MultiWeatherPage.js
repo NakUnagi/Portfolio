@@ -37,6 +37,7 @@ import Swiper from '../../Swiper/Swiper'
                         // sunrise={day[1]}
                         // sunset={day[1]}
                     />
+                    {console.log(day[1])}
                 </div>
             ) 
         )
@@ -46,7 +47,7 @@ import Swiper from '../../Swiper/Swiper'
         <ServiceMultiWeatherForecastContextProvider>
             <button onClick={req}>Click</button>
                 <Swiper slideProps={forecastDayArray}/>
-            {bodyRequest && console.log(forecastDayArray)}
+            {/* {bodyRequest && console.log(forecastDayArray)} */}
         </ServiceMultiWeatherForecastContextProvider>
     )
 }
