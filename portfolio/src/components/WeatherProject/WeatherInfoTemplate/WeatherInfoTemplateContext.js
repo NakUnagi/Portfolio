@@ -7,20 +7,9 @@ export const WeatherInfoTemplateContext = createContext()
 export const WeatherInfoTemplateContextProvioder = ({children}) => {
 
     const { 
-        date, selectValue, time12,
+        date, time12, data
     } = useContext(ServiceGetWeatherContext)
 
-    const tempUnit = () => {
-        if (selectValue === '') {
-            return <span>&#8490;</span>
-        } else if (selectValue === '&units=imperial') {
-            return <span>&#x2109;</span>
-        } else if (selectValue === '&units=metric') {
-            return <span>&#x2103;</span>
-        }
-    }
-
-    const [tempUnitTransform, setTempUnitTransform] = useState()
     const [year, setYear] = useState()
     const [month, setMonth] = useState()
     const [day, setDay] = useState()
@@ -28,7 +17,6 @@ export const WeatherInfoTemplateContextProvioder = ({children}) => {
     const [timeArray, setTimeArray] = useState()
 
     const setData2 = () => {
-        setTempUnitTransform(tempUnit().props.children !== 'K' ? <sup>{tempUnit()}</sup> :  tempUnit())
         setYear(date.slice(0,4))
         setMonth(date.slice(5,7))
         setDay(date.slice(8,10))
@@ -37,20 +25,14 @@ export const WeatherInfoTemplateContextProvioder = ({children}) => {
     }
 
     useEffect(() => {
-    //     setTempUnitTransform(tempUnit().props.children !== 'K' ? <sup>{tempUnit()}</sup> :  tempUnit())
-    //     setYear(date.slice(0,4))
-    //     setMonth(date.slice(5,7))
-    //     setDay(date.slice(8,10))
-    //     setPM_AM(time12.slice(9,11).split(':'))
-    //     setTimeArray(time12.slice(0,8).split(':'))
     setData2()
-    }, [date])
+    }, [data, date])
 
     return (
         <WeatherInfoTemplateContext.Provider 
-        value={{ tempUnitTransform, year, month, day, tempUnit, PM_AM, timeArray, setData2, }}
+        value={{ year, month, day, PM_AM, timeArray, setData2, }}
         >
-            {children}
+            {children}            
             {/* {console.log(`tempUnitTransform ${tempUnitTransform}`)}
             {console.log(`year ${year}`)}
             {console.log(`month ${month}`)}

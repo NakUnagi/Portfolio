@@ -36,7 +36,8 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             setSelectValueParams('')
         }
         if(data) {
-            setTimeout(() => document.getElementById("myForm").click(), 10)
+            setTimeout(() => document.getElementById("myForm").click(), 1)
+            setTimeout(() => document.getElementById("multi").click(), 1)
         }
     }
 
@@ -66,7 +67,6 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
                 setLoader(false)
              });
     }
-    
 
     useEffect( () => {
         const getTimeZoneName = (lat, long) => {

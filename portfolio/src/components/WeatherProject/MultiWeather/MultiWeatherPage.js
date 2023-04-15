@@ -4,11 +4,9 @@ import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecast
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 import Swiper from '../../Swiper/Swiper'
 import weatherInfo from '../weatherInfoJSON'
-
-
  const MultiWeatherPage = props => {
     const { 
-        data
+        data, selectValue
     } = useContext(ServiceGetWeatherContext)
 
     const { req, bodyRequest, timeOfDay2 } = useContext(ServiceMultiWeatherForecastContext)
@@ -46,11 +44,11 @@ import weatherInfo from '../weatherInfoJSON'
                             img={img.slice(11)}
                             currentTime={day[1]}
                             currentDay={currentDay}
+                            selectValue={selectValue}
                             // date={day[1]}
-                            // mainTemp={day[1]}
-                            // mainFeelsLike={day[1]}
+                            mainTemp={Math.floor(day[1].main.temp)}
+                            mainFeelsLike={Math.floor(day[1].main.feels_like)}
                             // tempUnit={day[1]}
-                            // weather={}
                             weather={day[1].weather[0].main}
                             descLength={desc.length > 0 && ':'}
                             desc={desc}
@@ -71,7 +69,7 @@ import weatherInfo from '../weatherInfoJSON'
 
     return (
         <ServiceMultiWeatherForecastContextProvider>
-            <button onClick={req}>Click</button>
+            <button id="multi" onClick={req}>Click</button>
                 <Swiper slideProps={forecastDayArray}/>
         </ServiceMultiWeatherForecastContextProvider>
     )

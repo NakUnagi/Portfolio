@@ -49,15 +49,14 @@ const GetWeatherInfo = () => {
         <WeatherInfoTemplate 
             name={data.name}
             img={img.slice(11)}
-            // currentTime={time12}
             currentDay={currentDay}
             date={date}
             mainTemp={Math.floor(mainTemp)}
             mainFeelsLike={Math.floor(mainFeelsLike)}
-            // tempUnit={tempUnit()}
             weather={data.weather[0].main}
             descLength={desc.length > 0 && ':'}
             desc={desc}
+            selectValue={selectValue}
             humidity={data.main.humidity}
             pressure={data.main.pressure}
             sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}

@@ -1,20 +1,32 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { WeatherInfoTemplateContext, WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
 import Clock from '../../Clock'
 import './weatherTemplate.scss'
 
 const WeatherInfoTemplate = props => {
-
+    
     const { 
         name, currentTime, date, img, desc,
         mainTemp, mainFeelsLike, weather,
         descLength, humidity, pressure, sunrise, 
-        sunset, currentDay
+        sunset, currentDay, selectValue
     } = props
 
-    const { tempUnitTransform, year, month, day, PM_AM, timeArray, 
+    const { year, month, day, PM_AM, timeArray, 
     } = useContext(WeatherInfoTemplateContext)
-    
+
+    const tempUnit = () => {
+        if (selectValue === '') {
+            return <span>&#8490;</span>
+        } else if (selectValue === '&units=imperial') {
+            return <span>&#x2109;</span>
+        } else if (selectValue === '&units=metric') {
+            return <span>&#x2103;</span>
+        }
+    }
+    let tempUnitTransform = tempUnit().props.children !== 'K' ? <sup>{tempUnit()}</sup> :  tempUnit()
+
+
     return (
         <>
             <WeatherInfoTemplateContextProvioder>
@@ -38,6 +50,7 @@ const WeatherInfoTemplate = props => {
                             <em className="font-600">{day}/{month}/{year}</em>
                         </div>
                         <div>
+                            {/* <p>{selectValue}</p> */}
                             <p className="font-45 mr-0 font-600">{mainTemp}{tempUnitTransform}</p>
                         </div>
                         <div>

@@ -23,7 +23,6 @@ export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
                 setBodyRequest(() => body)
                 body.forEach(el => {
                     setTimeOfDay2(el.weather[0].icon.slice(2,3))
-                    // console.log(el)
                 })
             })
             .catch(err => {
@@ -33,6 +32,7 @@ export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
     return (
         <ServiceMultiWeatherForecastContext.Provider value={{req, bodyRequest, timeOfDay2}}>
             {children}
+            {/* {console.log(bodyRequest)} */}
         </ServiceMultiWeatherForecastContext.Provider>
     )
 }
