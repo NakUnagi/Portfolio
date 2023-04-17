@@ -5,7 +5,7 @@ import Loader from "../../Loader";
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 import MultiWeatherPage from '../MultiWeather/MultiWeatherPage'
 import { ServiceMultiWeatherForecastContextProvider } from '../WeatherServices/ServiceMultiWeatherForecastContext'
-import { WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
+
 import weatherInfo from '../weatherInfoJSON'
 
 const GetWeatherInfo = () => {
@@ -13,8 +13,10 @@ const GetWeatherInfo = () => {
     const { 
         timeOfDay, data, loader, errorMessage,
         message, selectValue, timeZone, time12,
-        date, mainTemp, mainFeelsLike, currentDay
+        date, mainTemp, mainFeelsLike, currentDay,
+        PM_AM, timeArray, year, month, day,
     } = useContext(ServiceGetWeatherContext)
+
 
     const info = (
         <div className="weather-info-container">
@@ -45,22 +47,27 @@ const GetWeatherInfo = () => {
         {loader 
         ? 
         <Loader /> 
-        : 
+        :
         <WeatherInfoTemplate 
-            name={data.name}
-            img={img.slice(11)}
-            currentDay={currentDay}
-            date={date}
-            mainTemp={Math.floor(mainTemp)}
-            mainFeelsLike={Math.floor(mainFeelsLike)}
-            weather={data.weather[0].main}
-            descLength={desc.length > 0 && ':'}
-            desc={desc}
-            selectValue={selectValue}
-            humidity={data.main.humidity}
-            pressure={data.main.pressure}
-            sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
-            sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+        name={data.name}
+        img={img.slice(11)}
+        currentDay={currentDay}
+        date={date}
+        timeArray={timeArray}
+        PM_AM={PM_AM}
+        year={year}
+        month={month}
+        day={day}
+        mainTemp={Math.floor(mainTemp)}
+        mainFeelsLike={Math.floor(mainFeelsLike)}
+        weather={data.weather[0].main}
+        descLength={desc.length > 0 && ':'}
+        desc={desc}
+        selectValue={selectValue}
+        humidity={data.main.humidity}
+        pressure={data.main.pressure}
+        sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+        sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
         />
         }
         </>
@@ -75,28 +82,13 @@ const GetWeatherInfo = () => {
     return(
        <>
             <ServiceGetWeatherContextProvider>
-                <WeatherInfoTemplateContextProvioder>
                     {errorMessage ? errorMSG : null ||
                     data ? weather : info}
-                </WeatherInfoTemplateContextProvioder>
             </ServiceGetWeatherContextProvider>
             <ServiceMultiWeatherForecastContextProvider>
-                <WeatherInfoTemplateContextProvioder>
                     { data && <MultiWeatherPage />}
-                </WeatherInfoTemplateContextProvioder>
             </ServiceMultiWeatherForecastContextProvider>
        </>
-
-            // <WeatherInfoTemplateContextProvioder>
-            //     <ServiceGetWeatherContextProvider>
-            //         {errorMessage ? errorMSG : null ||
-            //         data ? weather : info}
-            //     </ServiceGetWeatherContextProvider>
-            //     <ServiceMultiWeatherForecastContextProvider>
-            //         {errorMessage ? errorMSG : null ||
-            //         data ? <MultiWeatherPage /> : info}
-            //     </ServiceMultiWeatherForecastContextProvider>
-            // </WeatherInfoTemplateContextProvioder>
     )
 
 }

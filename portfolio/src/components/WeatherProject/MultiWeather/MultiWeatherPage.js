@@ -1,12 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ServiceGetWeatherContext } from '../WeatherServices/ServiceGetWeatherContext';
 import { ServiceMultiWeatherForecastContextProvider, ServiceMultiWeatherForecastContext } from '../WeatherServices/ServiceMultiWeatherForecastContext'
 import WeatherInfoTemplate from '../WeatherInfoTemplate/WeatherInfoTemplate'
 import Swiper from '../../Swiper/Swiper'
 import weatherInfo from '../weatherInfoJSON'
+
+
  const MultiWeatherPage = props => {
+    const [year, setYear] = useState('')
+    const [month, setMonth] = useState('')
+    const [currentDay, setCurrentDay] = useState('')
     const { 
-        data, selectValue
+        data, selectValue, PM_AM, timeArray
     } = useContext(ServiceGetWeatherContext)
 
     const { req, bodyRequest, timeOfDay2 } = useContext(ServiceMultiWeatherForecastContext)
@@ -19,9 +24,11 @@ import weatherInfo from '../weatherInfoJSON'
 
     const singleDay = () =>{
         Object.entries(bodyRequest).map(day => {
-            const currentDay = new Date((day[1].dt) * 1000).toLocaleString()
+            let currentDay = new Date((day[1].dt) * 1000).toLocaleString()
+            setYear(currentDay.slice(0,4))
+            setMonth(currentDay.slice(5,7))
+            setCurrentDay(currentDay.slice(8,10))
     
-                // for (let i = 0; timeOfDay2 == i ; i++) {
                     weatherInfo.map(item => {
                         if (day && day[1].weather[0].id === item.id) {
                             desc = item.description
@@ -34,7 +41,6 @@ import weatherInfo from '../weatherInfoJSON'
                             }
                         }
                     })
-                // }
             
             return (
                 forecastDayArray.push(
@@ -45,6 +51,11 @@ import weatherInfo from '../weatherInfoJSON'
                             currentTime={day[1]}
                             currentDay={currentDay}
                             selectValue={selectValue}
+                            timeArray={timeArray}
+                            PM_AM={PM_AM}
+                            year={year[0]}
+                            month={month[0]}
+                            day={currentDay[0]}
                             // date={day[1]}
                             mainTemp={Math.floor(day[1].main.temp)}
                             mainFeelsLike={Math.floor(day[1].main.feels_like)}

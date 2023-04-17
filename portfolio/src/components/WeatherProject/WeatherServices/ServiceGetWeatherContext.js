@@ -17,10 +17,14 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [selectValue, setSelectValueParams] = useState('&units=metric')
     const [timeZone, setTimeZone] = useState('')
     const [time12, setTime12] = useState('')
-    const [date, setDate] = useState('')
     const [mainTemp, setMainTemp] = useState('')
     const [mainFeelsLike, setMainFeelsLike] = useState('')
     const [currentDay, setCurrentDay] = useState('')
+    const [year, setYear] = useState()
+    const [month, setMonth] = useState()
+    const [day, setDay] = useState()
+    const [PM_AM, setPM_AM] = useState()
+    const [timeArray, setTimeArray] = useState()
     
     const API_KEY_TIMEZONE = '098ca779681449eba7cc7e76bb4367f0'
 
@@ -74,24 +78,27 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
             req.then(data => data.json())
             .then(body => {
                 setTimeZone(() => body.timezone) 
-                setTime12(() => body.time_12) 
-                setDate(() => body.date)
+                setYear(body.date.slice(0,4))
+                setMonth(body.date.slice(5,7))
+                setDay(body.date.slice(8,10))
+                setPM_AM(() => body.time_12.slice(9,11).split(':'))
+                setTimeArray(() => body.time_12.slice(0,8).split(':'))
                 setCurrentDay(() => body.date_time_txt.split(',')[0])
             }).catch(err => {
                 console.error(err)
                 });
             }
-
         getTimeZoneName(lat, long)
-    }, [data])
+    }, [data, day, month, year])
 
     return (
         <ServiceGetWeatherContext.Provider  value={{
             handeCityName, request, data, 
             timeOfDay, loader, errorMessage, message, 
             handleChangeUnit, selectValue, timeZone,
-            time12, date, mainTemp, mainFeelsLike,
-            currentDay, lat, long
+            time12, mainTemp, mainFeelsLike,
+            currentDay, lat, long,  year, 
+            month, day, PM_AM, timeArray,
             }}>
             {children}
         </ServiceGetWeatherContext.Provider>

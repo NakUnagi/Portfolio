@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { WeatherInfoTemplateContext, WeatherInfoTemplateContextProvioder } from '../WeatherInfoTemplate/WeatherInfoTemplateContext'
 import Clock from '../../Clock'
 import './weatherTemplate.scss'
 
@@ -9,11 +8,9 @@ const WeatherInfoTemplate = props => {
         name, currentTime, date, img, desc,
         mainTemp, mainFeelsLike, weather,
         descLength, humidity, pressure, sunrise, 
-        sunset, currentDay, selectValue
+        sunset, currentDay, selectValue, PM_AM, 
+        timeArray, year, month, day,
     } = props
-
-    const { year, month, day, PM_AM, timeArray, 
-    } = useContext(WeatherInfoTemplateContext)
 
     const tempUnit = () => {
         if (selectValue === '') {
@@ -29,15 +26,15 @@ const WeatherInfoTemplate = props => {
 
     return (
         <>
-            <WeatherInfoTemplateContextProvioder>
                 <div className="weather-info-container data">
                     <div className="d-flex flex-center-space-between">
                         <div>
                             <img src={img} alt="icon"/>
                         </div>
                         <div>
-                            <Clock time={timeArray} PM_AM={PM_AM}/>/
-                            {timeArray}
+                            <Clock time={timeArray} PM_AM={PM_AM}/>
+                            {/* {timeArray}{PM_AM}
+                            {console.log(timeArray)} */}
                         </div>
                     </div>
                     <div className="d-block text-center mr-bott-25">
@@ -80,7 +77,6 @@ const WeatherInfoTemplate = props => {
                         </div>
                     </div>
                 </div>
-            </WeatherInfoTemplateContextProvioder>
         </>
     )
 
