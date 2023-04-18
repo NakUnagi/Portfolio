@@ -5,7 +5,7 @@ import './weatherTemplate.scss'
 const WeatherInfoTemplate = props => {
     
     const { 
-        name, currentTime, date, img, desc,
+        name, img, desc, multiForecast,
         mainTemp, mainFeelsLike, weather,
         descLength, humidity, pressure, sunrise, 
         sunset, currentDay, selectValue, PM_AM, 
@@ -67,14 +67,19 @@ const WeatherInfoTemplate = props => {
                             <p className="p-right-10 uppercase">Pressure:</p>
                             <em className="font-600">{pressure} hPa</em>
                         </div>
-                        <div className="d-flex">
-                            <p className="p-right-10 uppercase">Sunrise:</p>
-                            <em className="font-600">{sunrise}</em>
-                        </div>
-                        <div className="d-flex">
-                            <p className="p-right-10 uppercase">Sunset:</p>
-                            <em className="font-600">{sunset}</em>
-                        </div>
+                        {!multiForecast ? 
+                            <>
+                                 <div className="d-flex">
+                                    <p className="p-right-10 uppercase">Sunrise:</p>
+                                    <em className="font-600">{sunrise}</em>
+                                </div>
+                                <div className="d-flex">
+                                    <p className="p-right-10 uppercase">Sunset:</p>
+                                    <em className="font-600">{sunset}</em>
+                                </div>
+                            </>
+                        : 
+                        null}
                     </div>
                 </div>
         </>
