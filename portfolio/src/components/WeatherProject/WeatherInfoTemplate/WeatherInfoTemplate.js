@@ -32,7 +32,7 @@ const WeatherInfoTemplate = props => {
                             <img src={img} alt="icon"/>
                         </div>
                         <div>
-                            <Clock time={timeArray} PM_AM={PM_AM}/>
+                            {/* <Clock time={timeArray} PM_AM={PM_AM}/> */}
                             {/* {timeArray}{PM_AM}
                             {console.log(timeArray)} */}
                         </div>
@@ -44,7 +44,7 @@ const WeatherInfoTemplate = props => {
                         <div className="d-block font-20">
                             <em>{currentDay}</em>
                             <br/>
-                            <em className="font-600">{day}/{month}/{year}</em>
+                            {/* <em className="font-600">{day}/{month}/{year}</em> */}
                         </div>
                         <div>
                             {/* <p>{selectValue}</p> */}

@@ -35,37 +35,12 @@ const ForecastSwich = () => {
     } )
     const country = data && data.sys.country
 
-    const test = (
-            <>
-                {
-                    data 
-                        ?
-                        <WeatherInfoTemplate 
-                        name={data.name}
-                        img={img.slice(11)}
-                        currentDay={currentDay}
-                        date={date}
-                        timeArray={timeArray}
-                        PM_AM={PM_AM}
-                        year={year}
-                        month={month}
-                        day={day}
-                        mainTemp={Math.floor(mainTemp)}
-                        mainFeelsLike={Math.floor(mainFeelsLike)}
-                        weather={data.weather[0].main}
-                        descLength={desc.length > 0 && ':'}
-                        desc={desc}
-                        selectValue={selectValue}
-                        humidity={data.main.humidity}
-                        pressure={data.main.pressure}
-                        sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
-                        sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
-                        />  
-                    :
-                        null
-                }
-            </>            
-    )
+    const test = () => {
+        if (data) {
+            return <><div>ojoj</div></>
+        }
+    }
+    
 
     const handleDisplayForecast = e => {
         const valueTarget = e.target.value
@@ -92,9 +67,27 @@ const ForecastSwich = () => {
                         <button onClick={handleDisplayForecast} value="multi">MultiDay</button>
                         <div>
                             <div className={displaySingleDay ? 'show-component' : 'hide-component'}>
-                                {
-                                    test
-                                }
+                            <WeatherInfoTemplate 
+                                name={data.name}
+                                img={img.slice(11)}
+                                currentDay={currentDay}
+                                date={date}
+                                // timeArray={timeArray}
+                                // PM_AM={PM_AM}
+                                // year={year}
+                                // month={month}
+                                // day={day}
+                                mainTemp={Math.floor(mainTemp)}
+                                mainFeelsLike={Math.floor(mainFeelsLike)}
+                                // weather={data.weather[0].main}
+                                descLength={desc.length > 0 && ':'}
+                                desc={desc}
+                                selectValue={selectValue}
+                                humidity={data.main.humidity}
+                                pressure={data.main.pressure}
+                                sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+                                sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+                            /> 
                             </div>
                             <div className={displayMultiDay ? 'show-component' : 'hide-component'}>
                                 <MultiWeatherPage />  
