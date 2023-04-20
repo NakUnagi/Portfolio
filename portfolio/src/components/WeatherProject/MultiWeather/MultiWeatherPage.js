@@ -7,7 +7,9 @@ import weatherInfo from '../weatherInfoJSON'
 
 
  const MultiWeatherPage = props => {
-
+    const [year, setYear] = useState('')
+    const [month, setMonth] = useState('')
+    const [currentDay, setCurrentDay] = useState('')
     const { 
         data, selectValue, PM_AM, timeArray
     } = useContext(ServiceGetWeatherContext)
@@ -18,17 +20,14 @@ import weatherInfo from '../weatherInfoJSON'
 
     let img = ''
     let desc = ''
-    let multiForecast = false
 
 
     const singleDay = () =>{
-        // debugger
         Object.entries(bodyRequest).map(day => {
             let currentDay = new Date((day[1].dt) * 1000).toLocaleString()
-            const currentDay_YEAR = currentDay.slice(6,10)
-            const currentDay_MONTH = currentDay.slice(3,5)
-            const currentDay_DAY = currentDay.slice(0,2)
-            multiForecast = true
+            setYear(currentDay.slice(0,4))
+            setMonth(currentDay.slice(5,7))
+            setCurrentDay(currentDay.slice(8,10))
     
                     weatherInfo.map(item => {
                         if (day && day[1].weather[0].id === item.id) {
@@ -42,7 +41,7 @@ import weatherInfo from '../weatherInfoJSON'
                             }
                         }
                     })
-                    
+            
             return (
                 forecastDayArray.push(
                     <div className="swiper-slide" key={day[1].dt}>
@@ -54,17 +53,20 @@ import weatherInfo from '../weatherInfoJSON'
                             selectValue={selectValue}
                             timeArray={timeArray}
                             PM_AM={PM_AM}
-                            year={currentDay_YEAR} 
-                            month={currentDay_MONTH}
-                            day={currentDay_DAY}
+                            year={year[0]}
+                            month={month[0]}
+                            day={currentDay[0]}
+                            // date={day[1]}
                             mainTemp={Math.floor(day[1].main.temp)}
                             mainFeelsLike={Math.floor(day[1].main.feels_like)}
+                            // tempUnit={day[1]}
                             weather={day[1].weather[0].main}
                             descLength={desc.length > 0 && ':'}
                             desc={desc}
-                            humidity={day[1].main.humidity}
-                            pressure={day[1].main.pressure}
-                            multiForecast={multiForecast}
+                            // humidity={day[1]}
+                            // pressure={day[1]}
+                            // sunrise={day[1]}
+                            // sunset={day[1]}
                         />
                     </div>
                 ) 
