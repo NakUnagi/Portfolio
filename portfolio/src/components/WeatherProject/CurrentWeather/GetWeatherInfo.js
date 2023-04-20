@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ServiceGetWeatherContext, 
     ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext';
 import Loader from "../../Loader";
@@ -9,6 +9,9 @@ import { ServiceMultiWeatherForecastContextProvider } from '../WeatherServices/S
 import weatherInfo from '../weatherInfoJSON'
 
 const GetWeatherInfo = () => {
+
+    const [showSingleForecast, setShowSingleForecast] = useState(true)
+    const [showMultiForecast, setShowMultiForecast] = useState(false)
 
     const { 
         timeOfDay, data, loader, errorMessage,
@@ -22,6 +25,10 @@ const GetWeatherInfo = () => {
         <div className="weather-info-container">
             <p className="just-info">Here you will see the weather information</p>
         </div>
+    )
+
+    const text = (
+        !showSingleForecast ? 'Show single forecast' : 'Show multi forecast'
     )
 
     let img = ''
@@ -48,26 +55,28 @@ const GetWeatherInfo = () => {
         ? 
         <Loader /> 
         :
+        showSingleForecast
+            &&
         <WeatherInfoTemplate 
-        name={data.name}
-        img={img.slice(11)}
-        currentDay={currentDay}
-        date={date}
-        timeArray={timeArray}
-        PM_AM={PM_AM}
-        year={year}
-        month={month}
-        day={day}
-        mainTemp={Math.floor(mainTemp)}
-        mainFeelsLike={Math.floor(mainFeelsLike)}
-        weather={data.weather[0].main}
-        descLength={desc.length > 0 && ':'}
-        desc={desc}
-        selectValue={selectValue}
-        humidity={data.main.humidity}
-        pressure={data.main.pressure}
-        sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
-        sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+            name={data.name}
+            img={img.slice(11)}
+            currentDay={currentDay}
+            date={date}
+            timeArray={timeArray}
+            PM_AM={PM_AM}
+            year={year}
+            month={month}
+            day={day}
+            mainTemp={Math.floor(mainTemp)}
+            mainFeelsLike={Math.floor(mainFeelsLike)}
+            weather={data.weather[0].main}
+            descLength={desc.length > 0 && ':'}
+            desc={desc}
+            selectValue={selectValue}
+            humidity={data.main.humidity}
+            pressure={data.main.pressure}
+            sunrise={new Date(data.sys.sunrise * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
+            sunset={new Date(data.sys.sunset * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})}
         />
         }
         </>
@@ -79,14 +88,28 @@ const GetWeatherInfo = () => {
         </div>
     )
 
+    const handleClick = () => {
+        setShowMultiForecast(prev => !prev)
+        setShowSingleForecast(prev => !prev)
+    }
+
+
     return(
        <>
+            {   data 
+                    ? 
+                <>
+                    <button onClick={handleClick}>{text}</button>
+                </>
+                    :
+                null    
+            }
             <ServiceGetWeatherContextProvider>
                     {errorMessage ? errorMSG : null ||
                     data ? weather : info}
             </ServiceGetWeatherContextProvider>
             <ServiceMultiWeatherForecastContextProvider>
-                    { data && <MultiWeatherPage />}
+                    { (data && showMultiForecast) && <MultiWeatherPage />}
             </ServiceMultiWeatherForecastContextProvider>
        </>
     )
