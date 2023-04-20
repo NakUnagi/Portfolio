@@ -72,26 +72,26 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
              });
     }
 
-    // useEffect( () => {
-    //     const getTimeZoneName = (lat, long) => {
-    //             if (data) {
-    //                 const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
-    //                 req.then(data => data.json())
-    //                 .then(body => {
-    //                     setTimeZone(() => body.timezone) 
-    //                     setYear(body.date.slice(0,4))
-    //                     setMonth(body.date.slice(5,7))
-    //                     setDay(body.date.slice(8,10))
-    //                     setPM_AM(() => body.time_12.slice(9,11).split(':'))
-    //                     setTimeArray(() => body.time_12.slice(0,8).split(':'))
-    //                     setCurrentDay(() => body.date_time_txt.split(',')[0])
-    //                 }).catch(err => {
-    //                     console.error(err)
-    //                     });
-    //             }
-    //         }
-    //     getTimeZoneName(lat, long)
-    // }, [data, day, month, year, timeArray])
+    useEffect( () => {
+        const getTimeZoneName = (lat, long) => {
+                if (data) {
+                    const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
+                    req.then(data => data.json())
+                    .then(body => {
+                        setTimeZone(() => body.timezone) 
+                        setYear(body.date.slice(0,4))
+                        setMonth(body.date.slice(5,7))
+                        setDay(body.date.slice(8,10))
+                        setPM_AM(() => body.time_12.slice(9,11).split(':'))
+                        setTimeArray(() => body.time_12.slice(0,8).split(':'))
+                        setCurrentDay(() => body.date_time_txt.split(',')[0])
+                    }).catch(err => {
+                        console.error(err)
+                        });
+                }
+            }
+        getTimeZoneName(lat, long)
+    }, [data, day, month, year, timeArray])
 
     return (
         <ServiceGetWeatherContext.Provider  value={{
