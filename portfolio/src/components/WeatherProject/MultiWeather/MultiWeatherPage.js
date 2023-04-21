@@ -78,7 +78,7 @@ import weatherInfo from '../weatherInfoJSON'
 
     return (
         <ServiceMultiWeatherForecastContextProvider>
-            <button id="multi" onClick={req}>Click</button>
+            <button id="multi" onClick={req}>stare</button>
                 <Swiper slideProps={forecastDayArray}/>
         </ServiceMultiWeatherForecastContextProvider>
     )

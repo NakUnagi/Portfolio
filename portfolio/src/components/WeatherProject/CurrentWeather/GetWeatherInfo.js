@@ -89,6 +89,7 @@ const GetWeatherInfo = () => {
     )
 
     const handleClick = () => {
+
         setShowMultiForecast(prev => !prev)
         setShowSingleForecast(prev => !prev)
     }

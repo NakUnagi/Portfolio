@@ -47,6 +47,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
 
     const API_KEY = API_KEYS.API_KEY_WEATHER
     const test = 'cad32c121fd545dc87bafc7f00e9cf9c'
+    const test2 = '7e169e0cdb0f4a56897795d6f40edb28'
 
     const handeCityName = e => setCity(e.target.value)
     const URL_GET_WEATHER =  `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}${selectValue}&lang=en`
@@ -76,7 +77,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     useEffect( () => {
         const getTimeZoneName = (lat, long) => {
             // const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
-            const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${test}&lat=${lat}&long=${long}`))
+            const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${test2}&lat=${lat}&long=${long}`))
             req.then(data => data.json())
             .then(body => {
                 setTimeZone(() => body.timezone) 
@@ -91,7 +92,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
                 });
             }
         getTimeZoneName(lat, long)
-    }, [data, day, month, year])
+    }, [data, day, month, year, timeArray])
 
     return (
         <ServiceGetWeatherContext.Provider  value={{
