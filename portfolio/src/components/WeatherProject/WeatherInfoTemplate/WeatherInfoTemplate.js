@@ -57,7 +57,7 @@ const WeatherInfoTemplate = props => {
                     <div className="font-18 body">
                         <div className="d-flex">
                             <p className="p-right-10 uppercase">Perceptible temperature:</p>
-                            <em className="font-600">{mainFeelsLike} {tempUnitTransform}</em>
+                            <em className="font-600">{mainFeelsLike}{tempUnitTransform}</em>
                         </div>
                         <div className="d-flex">
                             <p className="p-right-10 uppercase">Humidity:</p>
