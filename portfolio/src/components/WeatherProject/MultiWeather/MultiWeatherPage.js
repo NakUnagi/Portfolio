@@ -8,6 +8,8 @@ import weatherInfo from '../weatherInfoJSON'
 
  const MultiWeatherPage = props => {
 
+    const [firstRequest, setFirstRequest] = useState(false)
+
     const { 
         data, selectValue, PM_AM, timeArray
     } = useContext(ServiceGetWeatherContext)
@@ -19,6 +21,8 @@ import weatherInfo from '../weatherInfoJSON'
     let img = ''
     let desc = ''
     let multiForecast = false
+
+    const runrequest = () => {}
 
 
     const singleDay = () =>{
