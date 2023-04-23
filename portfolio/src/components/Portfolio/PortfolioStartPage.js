@@ -9,7 +9,7 @@ const PortfolioStartPage = () => {
         <>
             <Nav />
             <main>
-                <section>
+                <section id="section-body">
                     <div className="container">
                         <div className="row">
                             <div className="col-md-12">

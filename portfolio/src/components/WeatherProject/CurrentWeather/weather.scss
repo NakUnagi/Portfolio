@@ -33,9 +33,15 @@
         width: 100%;
     }
 }
-.dark-btn-mode {
-    border-color: #fff;
-    background: #000;
+.btn-mode {
+    border: 2px solid #ffffff;
+    background: #3898ddeb;
+    color: #ffffff;
+    font-weight: 500;
+}
+.btn-mode:hover {
+    border: 2px solid #a0d6ff;
+    background-color: #a0d6ff;
 }
 .header-container:after {
     display: block;

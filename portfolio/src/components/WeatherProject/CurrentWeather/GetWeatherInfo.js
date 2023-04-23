@@ -17,7 +17,8 @@ const GetWeatherInfo = () => {
         timeOfDay, data, loader, errorMessage,
         message, selectValue, timeZone, time12,
         date, mainTemp, mainFeelsLike, currentDay,
-        PM_AM, timeArray, year, month, day,
+        PM_AM, timeArray, year, month, day, 
+        getTimeZoneName, lat, long
     } = useContext(ServiceGetWeatherContext)
 
 
@@ -28,7 +29,7 @@ const GetWeatherInfo = () => {
     )
 
     const text = (
-        !showSingleForecast ? 'Show single forecast' : 'Show multi forecast'
+        !showSingleForecast ? 'Current weather forecast' : 'Five-day weather forecast.'
     )
 
     let img = ''
@@ -82,6 +83,19 @@ const GetWeatherInfo = () => {
         </>
     )
 
+    const multiWeather = (
+        <>
+        {loader 
+        ? 
+        <Loader /> 
+        :
+        showMultiForecast
+            &&
+        <MultiWeatherPage />
+        }
+        </>
+    )
+
     const errorMSG = (
         <div className="weather-info-container">
             <p className="just-info">{message}</p>
@@ -89,29 +103,36 @@ const GetWeatherInfo = () => {
     )
 
     const handleClick = () => {
-
         setShowMultiForecast(prev => !prev)
         setShowSingleForecast(prev => !prev)
+        getTimeZoneName(lat, long)
     }
 
 
     return(
        <>
-            {   data 
-                    ? 
-                <>
-                    <button onClick={handleClick}>{text}</button>
-                </>
-                    :
-                null    
-            }
-            <ServiceGetWeatherContextProvider>
-                    {errorMessage ? errorMSG : null ||
-                    data ? weather : info}
-            </ServiceGetWeatherContextProvider>
-            <ServiceMultiWeatherForecastContextProvider>
-                    { (data && showMultiForecast) && <MultiWeatherPage />}
-            </ServiceMultiWeatherForecastContextProvider>
+            <div className="d-block">
+                {   data 
+                        ? 
+                    <>
+                        <button 
+                        className="mr-15-0 btn btn-mode"
+                        onClick={handleClick}
+                        >
+                            {text}
+                        </button>
+                    </>
+                        :
+                    null    
+                }
+                <ServiceGetWeatherContextProvider>
+                        {errorMessage ? errorMSG : null ||
+                        data ? weather : info}
+                </ServiceGetWeatherContextProvider>
+                <ServiceMultiWeatherForecastContextProvider>
+                        { data && multiWeather }
+                </ServiceMultiWeatherForecastContextProvider>
+            </div>
        </>
     )
 

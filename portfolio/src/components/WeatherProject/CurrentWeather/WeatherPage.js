@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ServiceGetWeatherContextProvider } from '../WeatherServices/ServiceGetWeatherContext'
 import SearchCity from "./SearchCity"
 import './weather.scss'
 
 
 const WeatherPage = () => {
+
+    document.body.style.setProperty('background', '#3898ddeb');
+
 
     return (
         <>

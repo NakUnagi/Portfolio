@@ -26,7 +26,7 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const [PM_AM, setPM_AM] = useState()
     const [timeArray, setTimeArray] = useState()
     
-    const API_KEY_TIMEZONE = '098ca779681449eba7cc7e76bb4367f0'
+    const API_KEY_TIMEZONE = '5abb4a24dd7c4efc8e76d4bd61113f71'
 
     const lat = data && data.coord.lat
     const long = data && data.coord.lon
@@ -74,29 +74,30 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
              });
     }
 
+    const getTimeZoneName = (lat, long) => {
+        const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
+        // const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${test2}&lat=${lat}&long=${long}`))
+        req.then(data => data.json())
+        .then(body => {
+            setTimeZone(() => body.timezone) 
+            setYear(body.date.slice(0,4))
+            setMonth(body.date.slice(5,7))
+            setDay(body.date.slice(8,10))
+            setPM_AM(() => body.time_12.slice(9,11).split(':'))
+            setTimeArray(() => body.time_12.slice(0,8).split(':'))
+            setCurrentDay(() => body.date_time_txt.split(',')[0])
+        }).catch(err => {
+            console.error(err)
+            });
+        }
+
     useEffect( () => {
-        const getTimeZoneName = (lat, long) => {
-            // const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${API_KEY_TIMEZONE}&lat=${lat}&long=${long}`))
-            const req = (fetch(`https://api.ipgeolocation.io/timezone?apiKey=${test2}&lat=${lat}&long=${long}`))
-            req.then(data => data.json())
-            .then(body => {
-                setTimeZone(() => body.timezone) 
-                setYear(body.date.slice(0,4))
-                setMonth(body.date.slice(5,7))
-                setDay(body.date.slice(8,10))
-                setPM_AM(() => body.time_12.slice(9,11).split(':'))
-                setTimeArray(() => body.time_12.slice(0,8).split(':'))
-                setCurrentDay(() => body.date_time_txt.split(',')[0])
-            }).catch(err => {
-                console.error(err)
-                });
-            }
         getTimeZoneName(lat, long)
-    }, [data, day, month, year, timeArray])
+    }, [data])
 
     return (
         <ServiceGetWeatherContext.Provider  value={{
-            handeCityName, request, data, 
+            handeCityName, request, data, getTimeZoneName,
             timeOfDay, loader, errorMessage, message, 
             handleChangeUnit, selectValue, timeZone,
             time12, mainTemp, mainFeelsLike,

@@ -40,7 +40,7 @@ const SearchCity =  () => {
                                         <option value="kelvin">Kelvin</option>
                                     </select>
                                 </div>
-                                <button id="myForm" type="submit" className="mr-15-0 btn btn-dark dark-btn-mode" onClick={request}>Search</button>
+                                <button id="myForm" type="submit" className="mr-15-0 btn btn-mode" onClick={request}>Search</button>
                             </form>
                         </ServiceGetWeatherContextProvider>
                     </div>

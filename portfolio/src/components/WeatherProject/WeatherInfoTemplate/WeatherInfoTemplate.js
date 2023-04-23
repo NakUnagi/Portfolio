@@ -51,7 +51,7 @@ const WeatherInfoTemplate = props => {
                             <p className="font-45 mr-0 font-600">{mainTemp}{tempUnitTransform}</p>
                         </div>
                         <div>
-                            <em className="font-20">{weather}{descLength} {desc}</em>
+                            <em className="font-20 nowrap">{weather}{descLength} {desc}</em>
                         </div>
                     </div>
                     <div className="font-18 body">

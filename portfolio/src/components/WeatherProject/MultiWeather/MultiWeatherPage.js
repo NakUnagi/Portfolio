@@ -22,11 +22,16 @@ import weatherInfo from '../weatherInfoJSON'
     let desc = ''
     let multiForecast = false
 
-    const runrequest = () => {}
+    const runRequest = () => {
+        if(!firstRequest) {
+            req()
+            setFirstRequest(true)
+        }
+       
+    }
 
 
     const singleDay = () =>{
-        // debugger
         Object.entries(bodyRequest).map(day => {
             let currentDay = new Date((day[1].dt) * 1000).toLocaleString()
             const currentDay_YEAR = currentDay.slice(6,10)
@@ -77,13 +82,16 @@ import weatherInfo from '../weatherInfoJSON'
     }
     singleDay()
     useEffect(() => {
+        runRequest()
         singleDay()
     }, [bodyRequest])
 
     return (
         <ServiceMultiWeatherForecastContextProvider>
-            <button id="multi" onClick={req}>stare</button>
+            {/* <button id="multi" onClick={req}>stare</button> */}
+            <div className="weather-info-container multy-data">
                 <Swiper slideProps={forecastDayArray}/>
+            </div>
         </ServiceMultiWeatherForecastContextProvider>
     )
 }
