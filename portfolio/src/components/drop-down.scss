@@ -1,0 +1,14 @@
+.drop-down {
+    display: inline-block;
+    position: relative;
+    .drop-down-list {
+        display: none;
+        position: absolute;
+        width: 100%;
+        overflow: auto;
+    }
+}
+
+.drop-down:hover .drop-down-list {
+    display: block;
+}

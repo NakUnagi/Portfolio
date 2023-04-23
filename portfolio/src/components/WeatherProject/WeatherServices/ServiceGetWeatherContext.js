@@ -32,6 +32,8 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const long = data && data.coord.lon
 
     const handleChangeUnit = e => {
+        e.preventDefault()
+
         if ( e.target.value === 'celsius' ) {
             setSelectValueParams('&units=metric')
         } else if ( e.target.value === 'fahrenheit' ) {
