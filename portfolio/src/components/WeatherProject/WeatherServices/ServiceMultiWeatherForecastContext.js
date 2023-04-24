@@ -21,6 +21,7 @@ export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
         request.then(res => res.json())
             .then(body => {
                 setBodyRequest(() => body)
+                console.log(body)
                 body.forEach(el => {
                     setTimeOfDay2(el.weather[0].icon.slice(2,3))
                 })

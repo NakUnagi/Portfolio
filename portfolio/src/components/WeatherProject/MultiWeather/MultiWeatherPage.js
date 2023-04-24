@@ -11,7 +11,7 @@ import weatherInfo from '../weatherInfoJSON'
     const [firstRequest, setFirstRequest] = useState(false)
 
     const { 
-        data, selectValue, PM_AM, timeArray
+        data, selectValue, PM_AM, timeArray, timeZone
     } = useContext(ServiceGetWeatherContext)
 
     const { req, bodyRequest, timeOfDay2 } = useContext(ServiceMultiWeatherForecastContext)
@@ -29,11 +29,15 @@ import weatherInfo from '../weatherInfoJSON'
         }
        
     }
+    
+    const country = data && data.sys.country
 
 
     const singleDay = () =>{
         Object.entries(bodyRequest).map(day => {
-            let currentDay = new Date((day[1].dt) * 1000).toLocaleString()
+            let currentDay = new Date((day[1].dt) * 1000).toLocaleDateString()
+            const currentDeyTime = new Date((day[1].dt) * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})
+            const test = `${currentDay}, ${currentDeyTime}`
             const currentDay_YEAR = currentDay.slice(6,10)
             const currentDay_MONTH = currentDay.slice(3,5)
             const currentDay_DAY = currentDay.slice(0,2)
@@ -59,7 +63,7 @@ import weatherInfo from '../weatherInfoJSON'
                             name={data.name}
                             img={img.slice(11)}
                             currentTime={day[1]}
-                            currentDay={currentDay}
+                            currentDay={test}
                             selectValue={selectValue}
                             timeArray={timeArray}
                             PM_AM={PM_AM}

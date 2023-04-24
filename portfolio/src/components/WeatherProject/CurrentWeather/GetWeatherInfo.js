@@ -116,7 +116,7 @@ const GetWeatherInfo = () => {
                         ? 
                     <>
                         <button 
-                        className="mr-15-0 btn btn-mode"
+                        className="swich-button btn btn-mode"
                         onClick={handleClick}
                         >
                             {text}

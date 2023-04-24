@@ -34,11 +34,11 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
     const handleChangeUnit = e => {
         e.preventDefault()
 
-        if ( e.target.value === 'celsius' ) {
+        if ( e.target.value === 'Celsius' ) {
             setSelectValueParams('&units=metric')
-        } else if ( e.target.value === 'fahrenheit' ) {
+        } else if ( e.target.value === 'Fahrenheit' ) {
             setSelectValueParams('&units=imperial')
-        } else if ( e.target.value === 'kelvin' ) {
+        } else if ( e.target.value === 'Kelvin' ) {
             setSelectValueParams('')
         }
         if(data) {

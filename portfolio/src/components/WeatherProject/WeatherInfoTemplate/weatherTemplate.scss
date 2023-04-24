@@ -5,6 +5,10 @@
         margin: 0;
         font-size: 33px;
         font-weight: 200;
+        @media (max-width: 1199px) {
+            font-size: 25px;
+
+        }
     }
     &.data{
         display: block;
