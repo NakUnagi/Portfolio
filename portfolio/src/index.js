@@ -5,7 +5,8 @@ import './index.scss'
 import PortfolioStartPage from './components/Portfolio/PortfolioStartPage'
 import WeatherPage from './components/WeatherProject/CurrentWeather/WeatherPage'
 import ErrorPage from './components/ErrorPage/ErrorPage'
-import New from './components/WeatherProject/New/New'
+import GameList from './games/GameLIst/GameList'
+import Arena from './games/TicTacToe/Arena'
 
 const router = createBrowserRouter([
   {
@@ -18,8 +19,12 @@ const router = createBrowserRouter([
         element: <WeatherPage />,
       },
       {
-        path: "new",
-        element: <New />,
+        path: "games",
+        element: <GameList />,
+      },
+      {
+        path: "games/tic-tac-toe",
+        element: <Arena />,
       }
     ]
   },

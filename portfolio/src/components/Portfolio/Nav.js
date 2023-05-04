@@ -16,7 +16,7 @@ const Nav = () => {
                             <NavLink to="weather" className="nav-link">Weather</NavLink>
                             </li>
                             <li className="nav-item">
-                            <NavLink to="new" className="nav-link">New</NavLink>
+                            <NavLink to="games" className="nav-link">Games</NavLink>
                             </li>
                         </ul>
                     </div>
