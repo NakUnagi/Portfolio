@@ -11,7 +11,7 @@ const SearchCity =  () => {
     const [unitsValue, setUnitsValue] = useState('Celsius')
 
     const { 
-        handeCityName, request, data, errorMessage, 
+        handeCityName, request, 
         loader, handleChangeUnit, 
     } = useContext(ServiceGetWeatherContext)
 

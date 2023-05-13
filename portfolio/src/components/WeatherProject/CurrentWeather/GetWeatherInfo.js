@@ -15,7 +15,7 @@ const GetWeatherInfo = () => {
 
     const { 
         timeOfDay, data, loader, errorMessage,
-        message, selectValue, timeZone, time12,
+        message, selectValue, timeZone,
         date, mainTemp, mainFeelsLike, currentDay,
         PM_AM, timeArray, year, month, day, 
         getTimeZoneName, lat, long

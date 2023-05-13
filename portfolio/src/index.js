@@ -6,7 +6,8 @@ import PortfolioStartPage from './components/Portfolio/PortfolioStartPage'
 import WeatherPage from './components/WeatherProject/CurrentWeather/WeatherPage'
 import ErrorPage from './components/ErrorPage/ErrorPage'
 import GameList from './games/GameLIst/GameList'
-import Arena from './games/TicTacToe/Arena'
+import TicTacToe from './games/TicTacToe/TicTacToe.js'
+import Bird from './games/Bird/Bird'
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: "games/tic-tac-toe",
-        element: <Arena />,
+        element: <TicTacToe />,
+      },
+      {
+        path: "games/bird",
+        element: <Bird />,
       }
     ]
   },

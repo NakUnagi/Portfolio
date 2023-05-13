@@ -8,6 +8,7 @@ const GameList = () => {
     return (
         <>
             <NavLink to={`tic-tac-toe`} className="game-nav-item">Tic Tac Toe</NavLink>
+            <NavLink to={`bird`} className="game-nav-item">Bird</NavLink>
         </>
     )
 }

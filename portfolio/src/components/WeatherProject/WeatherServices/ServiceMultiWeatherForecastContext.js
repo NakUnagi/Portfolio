@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import {ServiceGetWeatherContext} from './ServiceGetWeatherContext'
 
 const API_KEYS = {
@@ -8,7 +8,7 @@ const API_KEYS = {
 export const ServiceMultiWeatherForecastContext = createContext()
 
 export const ServiceMultiWeatherForecastContextProvider = ({ children }) => {
-    const { data, lat, long, selectValue } = useContext(ServiceGetWeatherContext)
+    const { lat, long, selectValue } = useContext(ServiceGetWeatherContext)
     const [bodyRequest, setBodyRequest] = useState('')
     const [timeOfDay2, setTimeOfDay2] = useState('')
 

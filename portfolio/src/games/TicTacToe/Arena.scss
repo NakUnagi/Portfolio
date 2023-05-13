@@ -1,0 +1,16 @@
+.cell {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #ffffff;
+    text-align: center;
+    font-size: 70px
+}
+
+.arena-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap: 5px;
+    margin: 30px auto;
+    width: 380px;
+}

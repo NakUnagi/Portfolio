@@ -11,7 +11,7 @@ const WeatherPage = () => {
 
     return (
         <>
-            <div className="container">
+            {/* <div className="container"> */}
                 <div className="row d-lg-flex">
                     <div className='col-lg-12'>
                     <div className='col-lg-6 d-block-center p-15-0 header-container'>
@@ -24,7 +24,7 @@ const WeatherPage = () => {
                 <ServiceGetWeatherContextProvider>
                     <SearchCity />
                 </ServiceGetWeatherContextProvider>
-           </div>
+           {/* </div> */}
         </>
     )
 }
