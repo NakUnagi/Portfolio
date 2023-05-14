@@ -11,7 +11,8 @@ class Bird extends Component {
         gravity: 2,
         pipes: [],
         pipesGap: 50,
-        score: 0
+        score: 0,
+        fps: 60,
     }
 
     birdCanvasRef = createRef()
@@ -41,6 +42,8 @@ class Bird extends Component {
 
      birdImg = new Image()
      background = new Image()
+     pipesTop = new Image()
+     pipesBottom = new Image()
 
     
 
@@ -49,14 +52,27 @@ class Bird extends Component {
     // }
     
     startGame = () => {
-        setInterval(this.updateGame(), 1000 / 60)
-        this.gravityEffect()
+        setInterval(this.updateGame, 1000 / this.state.fps)
+        this.addPipe()
     }
-    
+
+    addPipe = () => {
+        this.pipesTop.src = '/game_bird/images/pipeTop.png'
+        this.pipesBottom.src = '/game_bird/images/pipeBottom.png'
+        let x = this.birdCanvasRef.current.width
+        let y = Math.floor(Math.random() * this.pipesTop.height) - this.pipesTop.height
+
+        const newPipe = {
+
+        }
+
+        this.setState((prev) => ({
+            pipes: [...prev.pipes, newPipe]
+        }))
+    }    
     
     renderGame = () => {
         const context = this.birdCanvasRef.current.getContext('2d')
-        console.log(context)
         this.background.src = '/game_bird/images/bg/1.png'
         this.birdImg.src = '/game_bird/images/bird.png'
     
@@ -77,10 +93,7 @@ class Bird extends Component {
     gravityEffect = () => {
         this.setState((prevState) => ({
             startY: prevState.startY + 2
-        })); 
-        // this.setState({
-        //     startY: this.state.startY + 2
-        // }); 
+        }));
     }
     
     moveUp = () => {
@@ -88,32 +101,25 @@ class Bird extends Component {
     }
     
     updateGame = () => {
-        // this.gravityEffect()
+        this.gravityEffect()
         this.renderGame()
-    }
-
-    componentDidUpdate = () => {
-        // setInterval(this.updateGame(), 1000 / 60)
-        // this.setState((prevState) => ({
-        //     startY: prevState.startY + 2
-        // })); 
-
     }
     
     componentDidMount = () =>{
         this.startGame()
+        document.addEventListener('click', () => {
+            this.moveUp()
+        })
+        
+        document.addEventListener('keydown', (e) => {
+            if(e.key === ' ') {
+                this.moveUp()
+            }
+        })
     }
 }
 
-// document.addEventListener('click', () => {
-//     moveUp()
-// })
 
-// document.addEventListener('keydown', (e) => {
-//     if(e.key === ' ') {
-//         moveUp()
-//     }
-// })
 
 
 
