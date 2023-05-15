@@ -53,6 +53,8 @@ class Bird extends Component {
     
     startGame = () => {
         setInterval(this.updateGame, 1000 / this.state.fps)
+        setInterval(this.addPipe, 1000 / 2)
+        setInterval(this.drawPipes, 1000 / 2)
         this.addPipe()
     }
 
@@ -63,13 +65,45 @@ class Bird extends Component {
         let y = Math.floor(Math.random() * this.pipesTop.height) - this.pipesTop.height
 
         const newPipe = {
-
+            top: {
+                img: this.pipesTop,
+                topPosition: x,
+                bottBosition: y,
+                width: this.pipesTop.width,
+                height: this.pipesTop.height
+            },
+            bottom: {
+                img: this.pipesBottom,
+                topPosition: x,
+                bottBosition: y + this.pipesBottom.height + this.state.pipesGap,
+                width: this.pipesBottom.width,
+                height: this.pipesBottom.height
+            }
         }
 
         this.setState((prev) => ({
             pipes: [...prev.pipes, newPipe]
         }))
+        console.log(this.state.pipes)
     }    
+
+    drawPipes = () => {
+        const context = this.birdCanvasRef.current.getContext('2d')
+
+        const pipesToDraw = [...this.state.pipes]
+        pipesToDraw.forEach(pipe => {
+
+            pipe.top.img.onload = () => {
+                context.drawImage(pipe.top.img, pipe.top.x, pipe.top.y)
+                // pipe.top.x--a
+            }
+            
+
+            context.drawImage(pipe.bottom.img, pipe.bottom.x, pipe.bottom.y)
+            pipe.bottom.x--
+            console.log(pipe)
+        })
+    }
     
     renderGame = () => {
         const context = this.birdCanvasRef.current.getContext('2d')
@@ -87,6 +121,7 @@ class Bird extends Component {
             context.fillText(`SCORE: ${this.state.score}`, 20, 20)
     
         };
+        this.drawPipes()
 
     }
     
