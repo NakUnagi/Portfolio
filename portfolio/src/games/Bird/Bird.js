@@ -7,12 +7,13 @@ class Bird extends Component {
     state = {
         startX: 30,
         startY: 30,
-        moveY: 40,
+        moveY: 35,
         gravity: 2,
         pipes: [],
-        pipesGap: 50,
+        pipesGap: 150,
         score: 0,
         fps: 60,
+        wrangPipe: false
     }
 
     birdCanvasRef = createRef()
@@ -22,7 +23,7 @@ class Bird extends Component {
             <div>
                 <canvas 
                 ref={this.birdCanvasRef}
-                height="700"
+                height="500"
                 width="500"
                 id="bird-canvas"
                 >
@@ -32,29 +33,70 @@ class Bird extends Component {
         )
     }
 
-    // const [startX, setStartX] = useState(30)
-    // let [startY, setStartY] = useState(30)
-    // let [moveY, setMoveY] = useState(40)
-    // const [gravity, setGravity] = useState(2)
-    // const [pipes, setPipes] = useState([])
-    // const [pipesGap, setPipesGap] = useState(50)
-    // const [score, setScore] = useState(0)
-
      birdImg = new Image()
      background = new Image()
      pipesTop = new Image()
      pipesBottom = new Image()
-
-    
-
-    // click = () => {
-    //     setScore(prev => prev + 1)
-    // }
     
     startGame = () => {
         setInterval(this.updateGame, 1000 / this.state.fps)
-        setInterval(this.addPipe, 1000 / 2)
-        setInterval(this.drawPipes, 1000 / 2)
+    }
+
+    checkCollision = () => {
+        const {startY, startX, pipes} = this.state
+        const birdWidth = this.birdImg.width
+        const birdHeight = this.birdImg.height
+        const pipesArray = [...pipes]
+        //the duck touches the top edge
+        if(startY < 0) {
+            this.setState({
+                startY: 0
+            })
+        }
+        //the duck touches the bottom edge
+        if(startY > this.birdCanvasRef.current.height - birdHeight) {
+            this.moveUp()
+        }
+        //check collision with gaps
+        pipesArray.forEach(pipe => {
+            if(startX + birdWidth > pipe.top.topPosition && startX <= pipe.top.topPosition + pipe.top.width) {
+               if(startY < pipe.top.height + pipe.top.bottBosition || startY + birdHeight >= pipe.bottom.bottBosition) {
+                    this.restartGame()
+               }
+            }
+            //Add points
+            if(pipe.top.topPosition == -1){
+                this.setState((prev) => ({
+                    score: prev.score + 1
+                }))
+            }
+
+            if(this.state.pipesGap === 120) {
+                this.setState({
+                    pipesGap: 120
+                }) 
+            }
+        })
+    }
+
+    lvlGamePlus = () => {
+        if(this.state.score > 0 && this.state.score % 2 === 0) {
+            this.setState((prev) => ({
+                pipesGap: prev.pipesGap - 1
+            })) 
+            console.log(this.state.pipesGap)
+        }
+    }
+
+    restartGame = () => {
+        this.setState({
+            startY: 30,
+            startX: 30,
+            pipesGap: 150,
+            score: 0,
+            pipes: []
+        })
+
         this.addPipe()
     }
 
@@ -75,35 +117,53 @@ class Bird extends Component {
             bottom: {
                 img: this.pipesBottom,
                 topPosition: x,
-                bottBosition: y + this.pipesBottom.height + this.state.pipesGap,
+                bottBosition: y + this.pipesTop.height + this.state.pipesGap,
                 width: this.pipesBottom.width,
                 height: this.pipesBottom.height
             }
         }
 
+        if( newPipe.top.topPosition - newPipe.top.height > newPipe.bottom.bottBosition) {
+            this.setState({
+                wrangPipe: true
+            })
+            return
+        }
+            
         this.setState((prev) => ({
             pipes: [...prev.pipes, newPipe]
         }))
         console.log(this.state.pipes)
+
     }    
+
+    displayText = () => {
+        const context = this.birdCanvasRef.current.getContext('2d')
+        context.font = "22px serif"
+        context.fillStyle = "#ffffff"
+        context.fillText(`SCORE: ${this.state.score}`, 20, 20)
+    }
 
     drawPipes = () => {
         const context = this.birdCanvasRef.current.getContext('2d')
-
         const pipesToDraw = [...this.state.pipes]
+
         pipesToDraw.forEach(pipe => {
+            context.drawImage(pipe.top.img, pipe.top.topPosition, pipe.top.bottBosition)
+                pipe.top.topPosition--
 
-            pipe.top.img.onload = () => {
-                context.drawImage(pipe.top.img, pipe.top.x, pipe.top.y)
-                // pipe.top.x--a
-            }
-            
+                context.drawImage(pipe.bottom.img, pipe.bottom.topPosition, pipe.bottom.bottBosition)
+                pipe.bottom.topPosition--
 
-            context.drawImage(pipe.bottom.img, pipe.bottom.x, pipe.bottom.y)
-            pipe.bottom.x--
-            console.log(pipe)
+                if(pipe.top.topPosition == 200) {
+                    this.addPipe()
+                    setTimeout(this.lvlGamePlus, 1)
+                }
         })
+        
     }
+
+    
     
     renderGame = () => {
         const context = this.birdCanvasRef.current.getContext('2d')
@@ -115,14 +175,8 @@ class Bird extends Component {
         };
     
         this.background.onload = () => {
-            context.drawImage(this.background, 0, 0, 500, 700)
-            context.font = "22px serif"
-            context.fillStyle = "#ffffff"
-            context.fillText(`SCORE: ${this.state.score}`, 20, 20)
-    
-        };
-        this.drawPipes()
-
+            context.drawImage(this.background, 0, 0, 500, 700)   
+        };        
     }
     
     gravityEffect = () => {
@@ -136,12 +190,22 @@ class Bird extends Component {
     }
     
     updateGame = () => {
+        this.checkCollision()
+        if(this.state.wrangPipe) {
+            this.setState({
+                wrangPipe: false
+            })
+            this.addPipe()
+        }
         this.gravityEffect()
         this.renderGame()
+        window.requestAnimationFrame(this.displayText)
+        window.requestAnimationFrame(this.drawPipes)
     }
     
     componentDidMount = () =>{
         this.startGame()
+        this.addPipe()
         document.addEventListener('click', () => {
             this.moveUp()
         })
