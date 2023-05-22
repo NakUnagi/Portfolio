@@ -20,7 +20,7 @@ class Bird extends Component {
 
     render() {
         return (
-            <div>
+            <div className="bird-canvas-container">
                 <canvas 
                 ref={this.birdCanvasRef}
                 height="500"
@@ -199,11 +199,13 @@ class Bird extends Component {
         }
         this.gravityEffect()
         this.renderGame()
-        window.requestAnimationFrame(this.displayText)
         window.requestAnimationFrame(this.drawPipes)
+        window.requestAnimationFrame(this.displayText)
     }
     
     componentDidMount = () =>{
+        // document.body.style.setProperty('height', '100vh');
+        document.body.style.setProperty('background', '#212529');
         this.startGame()
         this.addPipe()
         document.addEventListener('click', () => {

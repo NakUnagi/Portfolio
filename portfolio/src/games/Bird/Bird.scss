@@ -1,4 +1,13 @@
-// .bird-canvas {
-//     height: 512px;
-//     width: 512px;
-// }
+.bird-canvas-container {
+    text-align: center;
+    padding: 100px 0px;
+    border: 2px solid;
+    border-radius: 40px;
+}
+
+.container {
+    height: calc(100vh - 65px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
