@@ -36,11 +36,17 @@ import weatherInfo from '../weatherInfoJSON'
     const singleDay = () =>{
         Object.entries(bodyRequest).map(day => {
             let currentDay = new Date((day[1].dt) * 1000).toLocaleDateString()
+            console.log(currentDay)
             const currentDeyTime = new Date((day[1].dt) * 1000).toLocaleTimeString(`${country.toLowerCase()}-${country}`, {hour12: true, timeZone: timeZone})
-            const test = `${currentDay}, ${currentDeyTime}`
-            const currentDay_YEAR = currentDay.slice(6,10)
-            const currentDay_MONTH = currentDay.slice(3,5)
-            const currentDay_DAY = currentDay.slice(0,2)
+            const currentDate = `${currentDay}, ${currentDeyTime}`
+            let currentDay_YEAR = currentDay.slice(6,10)
+            let currentDay_MONTH = currentDay.slice(3,5)
+            let currentDay_DAY = currentDay.slice(0,2)
+            if(currentDay_DAY < 10) {
+                currentDay_DAY = '0'+currentDay.slice(0,1)
+                currentDay_MONTH = currentDay.slice(2,4)
+                currentDay_YEAR = currentDay.slice(5,10)
+            }
             multiForecast = true
     
                     weatherInfo.map(item => {
@@ -63,7 +69,7 @@ import weatherInfo from '../weatherInfoJSON'
                             name={data.name}
                             img={img.slice(11)}
                             currentTime={day[1]}
-                            currentDay={test}
+                            currentDay={currentDate}
                             selectValue={selectValue}
                             timeArray={timeArray}
                             PM_AM={PM_AM}
@@ -92,7 +98,6 @@ import weatherInfo from '../weatherInfoJSON'
 
     return (
         <ServiceMultiWeatherForecastContextProvider>
-            {/* <button id="multi" onClick={req}>stare</button> */}
             <div className="weather-info-container multy-data">
                 <Swiper slideProps={forecastDayArray}/>
             </div>

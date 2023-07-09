@@ -204,7 +204,6 @@ class Bird extends Component {
     }
     
     componentDidMount = () =>{
-        // document.body.style.setProperty('height', '100vh');
         document.body.style.setProperty('background', '#212529');
         this.startGame()
         this.addPipe()

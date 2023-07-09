@@ -8,6 +8,7 @@ import ErrorPage from './components/ErrorPage/ErrorPage'
 import GameList from './games/GameLIst/GameList'
 import TicTacToe from './games/TicTacToe/TicTacToe.js'
 import Bird from './games/Bird/Bird'
+import Snake from './games/Snake/Snake'
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: "games/bird",
         element: <Bird />,
+      },
+      {
+        path: "games/snake",
+        element: <Snake />
       }
     ]
   },
