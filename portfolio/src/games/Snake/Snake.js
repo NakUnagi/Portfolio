@@ -7,10 +7,13 @@ class Snake extends Component {
     state = {
         snake: [],
         snakeLength: 5,
-        wallSize: 10
+        wallSize: 10,
+        pause: true
     }
 
     snakeCanvas = createRef()
+    moveX = 0
+    moveY = 0
 
     render() {
         return (
@@ -26,6 +29,19 @@ class Snake extends Component {
             </div>
         )
     }
+    StartGame = () => {
+        this.makeSnake()
+
+        setInterval(() => {
+            this.clearCanvas()
+            this.checkColision()
+
+            if(this.state.pause === false) {
+                this.moveSnake()
+            }
+            this.drawSnake()
+        }, 2000/60)
+    }
 
     clearCanvas = () => {
         const context2D = this.snakeCanvas.current.getContext('2d')
@@ -36,7 +52,6 @@ class Snake extends Component {
     }
 
     makeSnake = () => {
-        console.log('początek')
         let canvaX = this.snakeCanvas.current.width
         let canvaH = this.snakeCanvas.current.height
         for(let i=0; i < this.state.snakeLength; i++){
@@ -48,12 +63,73 @@ class Snake extends Component {
         }
     }
 
-    StartGame = () => {
-        this.makeSnake()
+    drawSnake = () => {
+        const context2D = this.snakeCanvas.current.getContext('2d')
+        this.state.snake.forEach(el => {
+            context2D.strokeStyle = 'red'
+            context2D.lineWidth = 4
+            context2D.lineJoin = 'bevel'
+            context2D.strokeRect(el.x, el.y, this.state.wallSize, this.state.wallSize)
+        })
+    }    
 
-        setInterval(() => {
-            this.clearCanvas()
-        }, 1000/60)
+    mechanicsOfMovement = (e) =>{
+        if(this.state.pause) {
+            this.setState({
+                pause: false
+            })
+        }
+        switch(e.keyCode) {
+            case 37: //left
+            case 65: //a
+                this.moveX = -10
+                this.moveY= 0
+                break;
+            case 38: // up
+            case 87: // w
+                this.moveX = 0;
+                this.moveY = -10;
+                break;  
+            case 39: // right
+            case 68: // d
+                this.moveX = 10;
+                this.moveY = 0;
+                break;   
+            case 40: // down
+            case 83: // s
+                this.moveX = 0;
+                this.moveY = 10;
+                break;
+        }
+    }
+
+    moveSnake = () => {
+        let mx =  this.state.snake[0].x + this.moveX
+        let my =  this.state.snake[0].y + this.moveY
+        this.state.snake.unshift({x: mx, y: my})
+        this.state.snake.pop()
+        this.drawSnake()
+    }
+
+    resetGame = () => {
+        this.setState({
+            pause: true,
+            snake: []
+        })
+        this.clearCanvas()
+        this.moveX = 0
+        this.moveY = 0
+        this.makeSnake()
+        
+        console.log(this.state.snake)
+    }
+
+    checkColision = () => {
+        const {snake} = this.state
+        const {width, height} = this.snakeCanvas.current
+        if(snake[0].x > width || snake[0].x < 0 || snake[0].y > height || snake[0].y < 0) {
+            this.resetGame()
+        }
     }
 
     componentDidMount() {
@@ -62,7 +138,11 @@ class Snake extends Component {
     }
 
     componentDidUpdate(){
-        console.log(this.state.snake)
+        document.addEventListener('keydown', this.mechanicsOfMovement)
+        if(this.state.pause === false) {
+            this.moveSnake()
+            
+        }
 
     }
 }
