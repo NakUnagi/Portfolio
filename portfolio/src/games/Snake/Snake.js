@@ -8,7 +8,9 @@ class Snake extends Component {
         snake: [],
         snakeLength: 5,
         wallSize: 10,
-        pause: true
+        pause: true,
+        foodX: 0,
+        foodY: 0
     }
 
     snakeCanvas = createRef()
@@ -34,13 +36,14 @@ class Snake extends Component {
 
         setInterval(() => {
             this.clearCanvas()
+            this.generateFood()
             this.checkColision()
-
+            this.checkColisionWithFood()
             if(this.state.pause === false) {
                 this.moveSnake()
             }
             this.drawSnake()
-        }, 2000/60)
+        }, 3500/50)
     }
 
     clearCanvas = () => {
@@ -52,15 +55,15 @@ class Snake extends Component {
     }
 
     makeSnake = () => {
-        let canvaX = this.snakeCanvas.current.width
-        let canvaH = this.snakeCanvas.current.height
-        for(let i=0; i < this.state.snakeLength; i++){
-            let x = canvaX/2 + i*this.state.wallSize
-            let y = canvaH/2
-            this.setState((prev) => ({
-                snake: [...prev.snake, {x:x, y:y} ]
-            }))
-        }
+            let canvaX = this.snakeCanvas.current.width
+            let canvaH = this.snakeCanvas.current.height
+            for(let i=0; i < this.state.snakeLength; i++){
+                let x = canvaX/2 + i*this.state.wallSize
+                let y = canvaH/2
+                this.setState((prev) => ({
+                    snake: [...prev.snake, {x:x, y:y} ]
+                }))
+            }
     }
 
     drawSnake = () => {
@@ -132,9 +135,39 @@ class Snake extends Component {
         }
     }
 
+
+    generateCoordinatesFood = () => {
+        let newFoodX = Math.floor(Math.random() * this.snakeCanvas.current.width)
+        newFoodX = newFoodX - newFoodX%10
+        let newFoodY = Math.floor(Math.random() * this.snakeCanvas.current.height)
+        newFoodY = newFoodY - newFoodY%10
+        this.setState({
+            foodX: newFoodX,
+            foodY: newFoodY
+        })
+    }
+
+    generateFood = () => {
+        const {wallSize, foodX, foodY} = this.state
+        const context2D = this.snakeCanvas.current.getContext('2d')
+        context2D.fillStyle = '#ffffff'
+        context2D.lineWidth = 3
+        context2D.fillRect(foodX, foodY, wallSize, wallSize)
+    }
+
+    checkColisionWithFood = () => {
+        const {snake, foodX, foodY} = this.state
+
+        if(snake[0].x == foodX && snake[0].y == foodY) {
+            snake.push(Object.assign({}, snake)) 
+            this.generateCoordinatesFood()
+        }
+    }    
+
     componentDidMount() {
         document.body.style.setProperty('background', '#212529');
         this.StartGame()
+        this.generateCoordinatesFood()
     }
 
     componentDidUpdate(){
@@ -143,6 +176,7 @@ class Snake extends Component {
             this.moveSnake()
             
         }
+        console.log(this.state.snake)
 
     }
 }
