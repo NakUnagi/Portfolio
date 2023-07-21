@@ -10,7 +10,8 @@ class Snake extends Component {
         wallSize: 10,
         pause: true,
         foodX: 0,
-        foodY: 0
+        foodY: 0,
+        score: 0
     }
 
     snakeCanvas = createRef()
@@ -19,16 +20,23 @@ class Snake extends Component {
 
     render() {
         return (
-            <div className="snake-canvas-container">
-                <canvas
-                    ref = {this.snakeCanvas}
-                    id='canvSnake'
-                    width='1200'
-                    height='600'
-                >
-    
-                </canvas>
-            </div>
+            <>
+                <div>
+                    <span>
+                        Score: {this.state.score}
+                    </span>
+                </div>
+                <div className="snake-canvas-container">
+                    <canvas
+                        ref = {this.snakeCanvas}
+                        id='canvSnake'
+                        width='1200'
+                        height='600'
+                    >
+        
+                    </canvas>
+                </div>
+            </>
         )
     }
     StartGame = () => {
@@ -117,7 +125,8 @@ class Snake extends Component {
     resetGame = () => {
         this.setState({
             pause: true,
-            snake: []
+            snake: [],
+            score: 0
         })
         this.clearCanvas()
         this.moveX = 0
@@ -161,6 +170,9 @@ class Snake extends Component {
         if(snake[0].x == foodX && snake[0].y == foodY) {
             snake.push(Object.assign({}, snake)) 
             this.generateCoordinatesFood()
+            this.setState((prev) => ({
+                score: prev.score + 1
+            }))
         }
     }    
 
@@ -177,6 +189,7 @@ class Snake extends Component {
             
         }
         console.log(this.state.snake)
+        console.log(this.state.snake.length)
 
     }
 }

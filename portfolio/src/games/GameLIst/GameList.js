@@ -10,6 +10,7 @@ const GameList = () => {
             <NavLink to='tic-tac-toe' className="game-nav-item">Tic Tac Toe</NavLink>
             <NavLink to='bird' className="game-nav-item">Bird</NavLink>
             <NavLink to='snake' className="game-nav-item">Snake</NavLink>
+            <NavLink to='memory' className="game-nav-item">Memory</NavLink>
         </>
     )
 }
