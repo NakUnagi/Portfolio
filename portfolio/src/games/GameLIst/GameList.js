@@ -11,6 +11,7 @@ const GameList = () => {
             <NavLink to='bird' className="game-nav-item">Bird</NavLink>
             <NavLink to='snake' className="game-nav-item">Snake</NavLink>
             <NavLink to='memory' className="game-nav-item">Memory</NavLink>
+            <NavLink to='tetris'className="game-nav-item">Tetris</NavLink>
         </>
     )
 }

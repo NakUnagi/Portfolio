@@ -10,6 +10,8 @@ import TicTacToe from './games/TicTacToe/TicTacToe.js'
 import Bird from './games/Bird/Bird'
 import Snake from './games/Snake/Snake'
 import Memory from './games/Memory/Memory'
+import Tetris from './games/Tetris/Tetris'
+
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "games/memory",
         element: <Memory />
+      },
+      {
+        path: "games/tetris",
+        element: <Tetris />
       }
     ]
   },
