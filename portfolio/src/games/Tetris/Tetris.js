@@ -10,15 +10,14 @@ const Tetris = () => {
     const [NUMROWS, setNUMROWS] = useState()
     const [NUMCOLS, setNUMCOLS] = useState()
     const [blocksJson, setBlocks] = useState()
-    // const [blockX, setBlockX] = useState(240)
-    // const [blockY, setBlockY] = useState(20)
+    const [variantsArray, setVariantsArray] = useState()
     const [activeBlock, setActiveBlock] = useState()
-    const [nextVariant, setNextVariant] = useState()
 
     const canvasRef = useRef()
     const squareSize = 20
     let blockX = 240
     let blockY = 20
+    let indexVariant = 0
     let edgeColorBoard = []
     
 // Reusable functions
@@ -88,17 +87,30 @@ const loadBlocks = async(file) => {
 const setRandomVariant = () => {
     if(blocksJson) {
         const variant = Math.floor(Math.random() * blocksJson.length)
-        setActiveBlock(blocksJson[variant].variants[0])
+        setActiveBlock(blocksJson[variant])
     }
 }
 
 const drowVariant = () => {
     if(activeBlock) {
-        activeBlock.forEach((row, rowIndex) => {
+        activeBlock.variants[indexVariant].forEach((row, rowIndex) => {
             row.forEach((col, colIndex) => {
                 if(col) {
-                    // console.log(`row to ${row}`)
                     drowFillRect(rowIndex*squareSize+blockX, colIndex*squareSize+blockY, squareSize, squareSize, '#886cd5')
+                }
+            })
+        })
+    }
+}
+
+//Detect colision
+
+const isColision = () => {
+    if(activeBlock) {
+        activeBlock.variants[indexVariant].forEach((row, rowIndex) => {
+            row.forEach((col, colIndex) => {
+                if(col) {
+                    console.log(row)
                 }
             })
         })
@@ -107,10 +119,12 @@ const drowVariant = () => {
 
 //Block move
 const keyDetect = (e) => {
+    // console.log(e.keyCode)
     switch(e.keyCode) {
         case 40:
         case 83:
             moveDown()
+            isColision()
             break;
         case 39:
         case 68:
@@ -120,12 +134,12 @@ const keyDetect = (e) => {
         case 65:
             moveLeft()
             break;
-        // case 188:
-        //     prevPatern()
-        //     break;
-        // case 199:
-        //     nextPatern()
-        //     break;
+        case 190:
+            nextVariantFunction()
+            break;
+        case 188:
+            prevVariantFunction()
+            break;
     }
 }
 
@@ -147,7 +161,34 @@ const moveRight = () => {
     drowVariant()
 }
 
-    
+//Changing variants
+
+const nextVariantFunction = () => {
+    indexVariant++
+    if (activeBlock) {
+            if(indexVariant >= variantsArray.variants.length) {
+                indexVariant = 0
+            }
+        }
+        drowVariant()
+        drowEdge()
+}
+
+const prevVariantFunction = () => {
+    indexVariant--
+    if (activeBlock) {
+            if(indexVariant < 0) {
+                indexVariant = variantsArray.variants.length - 1
+                console.log(indexVariant)
+            }
+        }
+        drowVariant()
+        drowEdge()
+}
+
+    useEffect(() => {
+        setVariantsArray(activeBlock)
+    }, [activeBlock])
 
     useEffect(() => {
         document.body.style.setProperty('background', '#212529');
@@ -165,7 +206,8 @@ const moveRight = () => {
         document.addEventListener('keydown', keyDetect)
         setRandomVariant()
         drowVariant()
-    }, [blocksJson ])
+    }, [blocksJson])
+
     return(
         <canvas ref={canvasRef} width="400px" height="700"></canvas>
     )
