@@ -60,20 +60,24 @@ export const ServiceGetWeatherContextProvider = ({ children }) => {
         if (e) {
             e.preventDefault()
         }
-            const response = (fetch(URL_GET_WEATHER))
-            response.then(response => response.json())
-            .then(req => {
-                setData(() => req)
-                setTimeOfDay(req.weather[0].icon.slice(2,3))
-                setMainTemp(req.main.temp)
-                setMainFeelsLike(req.main.feels_like)
-                setLoader(false)
-            })
-            .catch(err => {
-                setErrorMessage(true);
-                setMessage('city not found')
-                setLoader(false)
-             });
+            if(city.length > 0) {
+                const response = (fetch(URL_GET_WEATHER))
+                response.then(response => response.json())
+                .then(req => {
+                    setData(() => req)
+                    setTimeOfDay(req.weather[0].icon.slice(2,3))
+                    setMainTemp(req.main.temp)
+                    setMainFeelsLike(req.main.feels_like)
+                    setLoader(false)
+                })
+                .catch(err => {
+                    setErrorMessage(true);
+                    setMessage('city not found')
+                    setLoader(false)
+                });
+            }else{
+                console.log('empty')
+            }
     }
 
     const getTimeZoneName = (lat, long) => {

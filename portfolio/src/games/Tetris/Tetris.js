@@ -106,14 +106,16 @@ const drowVariant = () => {
 //Detect colision
 
 const isColision = () => {
+
+    
+
     if(activeBlock) {
-        activeBlock.variants[indexVariant].forEach((row, rowIndex) => {
-            row.forEach((col, colIndex) => {
-                if(col) {
-                    console.log(row)
-                }
-            })
-        })
+        for(let r=0; r < activeBlock.variants[indexVariant].length; r++) {
+            for(let c=0; c < r.length; c++) {
+                console.log(c)
+            }
+        }
+
     }
 }
 
